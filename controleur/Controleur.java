@@ -27,6 +27,12 @@ public class Controleur {
 
         this.definirJoueur(); //definition et instanciation du joueur (anciennement joueur1)
         this.definirAdversaire();
+        while (!this.plateau.estFiniePartie()){
+            boolean aJoue = false;
+            while(!aJoue){
+
+            }
+        }
     }
 
     private void definirJoueur(){
