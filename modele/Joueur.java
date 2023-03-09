@@ -1,14 +1,14 @@
 package modele;
 
-import static modele.Plateau.noir;
-import static modele.Plateau.blanc;
+import static modele.Plateau.NOIR;
+import static modele.Plateau.BLANC;
 public class Joueur {
     private String nom;
     private String couleur;
     private int nbVictoires;
 
     public Joueur(String nom, String couleur)throws CouleurException{
-        if ((couleur != noir)&& (couleur!= blanc)){
+        if ((couleur != NOIR)&& (couleur!= BLANC)){
             throw new CouleurException(couleur +" n'est pas une couleur de jeu");
         }
         this.nom = nom;
@@ -38,7 +38,7 @@ public class Joueur {
     }
 
     public void setCouleur(String couleur) throws CouleurException {
-        if ((couleur != noir)&& (couleur!= blanc)){
+        if ((couleur != NOIR)&& (couleur!= BLANC)){
             throw new CouleurException(couleur +" n'est pas une couleur de pion");
         }
         this.couleur = couleur;

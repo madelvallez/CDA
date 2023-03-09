@@ -6,9 +6,9 @@ import static java.util.Arrays.fill;
 
 public class Plateau {
 
-    public final static String blanc = " \u26AA ";
-    public final static String noir = " \u26AB ";
-    public final static String vide = " \uD83D\uDFE9 ";
+    public final static String BLANC = " \u26AA ";
+    public final static String NOIR = " \u26AB ";
+    public final static String VIDE = " \uD83D\uDFE9 ";
     private String[][] grille ;
     private int dim;
 
@@ -16,7 +16,7 @@ public class Plateau {
         this.dim = dim;
         this.grille = new String[dim][dim];
         for (int i=0; i<this.dim; i++){
-            fill(this.grille[i], vide);
+            fill(this.grille[i], VIDE);
         }
 
     }
@@ -38,26 +38,26 @@ public class Plateau {
         /**
          * initialise le plateau pour un début de partie
          */
-        //fait un plateau vide
+        //fait un plateau VIDE
         for(int i=0; i<this.dim; i++){
             for (int j=0; j<this.dim; j++) {
-                this.grille[i][j] = vide;
+                this.grille[i][j] = VIDE;
             }
         }
         //ajoute les pions du centre
         int ind_centre = (this.dim-1) /2;
-        this.grille[ind_centre][ind_centre] = blanc;
-        this.grille[ind_centre][ind_centre+1] = noir;
-        this.grille[ind_centre+1][ind_centre] = noir;
-        this.grille[ind_centre+1][ind_centre+1] = blanc;
+        this.grille[ind_centre][ind_centre] = BLANC;
+        this.grille[ind_centre][ind_centre+1] = NOIR;
+        this.grille[ind_centre+1][ind_centre] = NOIR;
+        this.grille[ind_centre+1][ind_centre+1] = BLANC;
     }
 
     private void placerPion(String couleur, int i, int j) throws CouleurException{
         /**
-         * place un pion de la couleur @param couleur ( blanc ou noir ) dans la case [i][j]
+         * place un pion de la couleur @param couleur ( BLANC ou NOIR ) dans la case [i][j]
          * la case est supposée légale
          */
-        if ((couleur != noir)&& (couleur!= blanc)){
+        if ((couleur != NOIR)&& (couleur!= BLANC)){
             throw new CouleurException(couleur +" n'est pas une couleur de pion");
         }
         else {
@@ -67,17 +67,17 @@ public class Plateau {
 
     private Coup analyseCoup(int x, int y, String coul) throws CouleurException{
         //teste si la couleur est légale
-        if ((coul != noir)&& (coul!= blanc)){
+        if ((coul != NOIR)&& (coul!= BLANC)){
             throw new CouleurException(coul +" n'est pas une couleur de pion");
         }
         /* les cordonnées sont OK*/
         if (!(0<=x && x<this.dim && 0<=y && y<this.dim)){
             return new Coup();
         }
-        if (grille[x][y]!= vide){
+        if (grille[x][y]!= VIDE){
             return new Coup();
         }
-        String coulOpp = coul==noir ? blanc : noir; //donne la couleur opposée
+        String coulOpp = coul==NOIR ? BLANC : NOIR; //donne la couleur opposée
         Coup coup = new Coup(x,y, coul);
 
         //a un effet sur la ligne ------------------------------------------------------------------------------
@@ -179,7 +179,7 @@ public class Plateau {
 
     public ArrayList<Coup> listeCoupsPossibles(String coul) throws CouleurException{
         //teste si coul est legal
-        if ((coul != noir)&& (coul!= blanc)){
+        if ((coul != NOIR)&& (coul!= BLANC)){
             throw new CouleurException(coul +" n'est pas une couleur de pion");
         }
         ArrayList<Coup> liste = new ArrayList();
@@ -200,11 +200,11 @@ public class Plateau {
          * on suppose qu'il y a deja un pion
          */
         String couleur = this.grille[x][y];
-        if ((couleur != noir)&& (couleur!= blanc)){
+        if ((couleur != NOIR)&& (couleur!= BLANC)){
             throw new CouleurException(couleur +" n'est pas une couleur de pion -> il n'y a pas de pion en ("
             + ((Integer)x).toString()+", "+((Integer)y).toString()+")");
         }
-        this.grille[x][y] = this.grille[x][y]==noir ? blanc :noir;
+        this.grille[x][y] = this.grille[x][y]==NOIR ? BLANC :NOIR;
     }
 
     public void appliqueCoup(Coup coup) {
@@ -212,50 +212,50 @@ public class Plateau {
          * Applque le coup sur this.grille
          * /!\ le coup est supposé légal
          */
-        Coord coupleVide = new Coord();
+        Coord coupleVIDE = new Coord();
         String coul = coup.getCouleur();
         // on place le pion
         this.placerPion(coup.getCouleur(), coup.getX(), coup.getY());
         //traitement de la ligne
-        if (!(coup.getG().equals(coupleVide))) {
+        if (!(coup.getG().equals(coupleVIDE))) {
             for (int j = coup.getY()-1; j > coup.getG().getY(); j--) {
                 this.retournerPion(coup.getX(), j);
             }
         }
-        if (!coup.getD().equals(coupleVide)){
+        if (!coup.getD().equals(coupleVIDE)){
             for(int j = coup.getY()+1; j<coup.getD().getY(); j++){
                 this.retournerPion(coup.getX(), j);
             }
         }
         //traitement colonne
-        if (!coup.getH().equals(coupleVide)){
+        if (!coup.getH().equals(coupleVIDE)){
             for(int i=coup.getX()-1; i>coup.getH().getX(); i--){
                 this.retournerPion(i,coup.getY());
             }
         }
-        if(!coup.getB().equals(coupleVide)){
+        if(!coup.getB().equals(coupleVIDE)){
             for(int i=coup.getX()+1; i<coup.getB().getX(); i++){
                 this.retournerPion(i,coup.getY());
             }
         }
         //traitemment diagonale hg_bd
-        if(!coup.getHg().equals(coupleVide)){
+        if(!coup.getHg().equals(coupleVIDE)){
             for(int i=coup.getX()-1, j=coup.getY()-1; (i>coup.getHg().getX() && j>coup.getHg().getY()); i--, j--){
                 this.retournerPion(i,j);
             }
         }
-        if(!coup.getBd().equals(coupleVide)){
+        if(!coup.getBd().equals(coupleVIDE)){
             for(int i=coup.getX()+1, j=coup.getY()+1; (i<coup.getBd().getX() && j<coup.getBd().getY()); i++,j++){
                 this.retournerPion(i,j);
             }
         }
         //traitement diagonale hd-bg
-        if(!coup.getHd().equals(coupleVide)){
+        if(!coup.getHd().equals(coupleVIDE)){
             for(int i=coup.getX()-1, j=coup.getY()+1; (i>coup.getHd().getX() && j<coup.getHd().getY()); i--, j++){
                 this.retournerPion(i,j);
             }
         }
-        if(!coup.getBg().equals(coupleVide)){
+        if(!coup.getBg().equals(coupleVIDE)){
             for(int i=coup.getX()+1, j=coup.getY()-1; (i<coup.getBg().getX() && j>coup.getBg().getY()); i++, j--){
                 this.retournerPion(i,j);
             }
@@ -264,10 +264,10 @@ public class Plateau {
 
     public int score(String couleur)throws CouleurException{
         /**
-         * @param couleur : une couleur de pion (noir ou blanc)
+         * @param couleur : une couleur de pion (NOIR ou BLANC)
          * @return le nb de pion de la couleur [couleur] sur le plateau
          */
-        if ((couleur != noir)&& (couleur!= blanc)){
+        if ((couleur != NOIR)&& (couleur!= BLANC)){
             throw new CouleurException(couleur +" n'est pas une couleur de pion");
         }
         int cpt = 0;
@@ -282,12 +282,12 @@ public class Plateau {
     }
 
     public boolean estFiniePartie(){
-        ArrayList<Coup> coupsNoir = listeCoupsPossibles(noir);
-        if (coupsNoir.size() !=0){
+        ArrayList<Coup> coupsNOIR = listeCoupsPossibles(NOIR);
+        if (coupsNOIR.size() !=0){
             return false;
         }
-        ArrayList<Coup> coupsBlanc = listeCoupsPossibles(blanc);
-        if(coupsBlanc.size()!=0){
+        ArrayList<Coup> coupsBLANC = listeCoupsPossibles(BLANC);
+        if(coupsBLANC.size()!=0){
             return false;
         }
         return true;

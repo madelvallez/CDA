@@ -1,8 +1,8 @@
 package modele;
 
-import static modele.Plateau.vide;
-import static modele.Plateau.blanc;
-import static modele.Plateau.noir;
+import static modele.Plateau.VIDE;
+import static modele.Plateau.BLANC;
+import static modele.Plateau.NOIR;
 
 public class Coup{
     private boolean aEffet ;
@@ -19,7 +19,7 @@ public class Coup{
     private Coord bg; //coord du pion en face si le coup a un effet sur la diag bas gauche
 
     public Coup(int x, int y, String coul) throws CouleurException{
-        if ((coul != noir)&& (coul!= blanc)){
+        if ((coul != NOIR)&& (coul!= BLANC)){
             throw new CouleurException(coul +" n'est pas une couleur de pion");
         }
         this.x = x;
@@ -36,7 +36,7 @@ public class Coup{
         this.bg = new Coord();
     }
     public Coup(){
-        this(-1,-1, noir);
+        this(-1,-1, NOIR);
     }
 
     @Override

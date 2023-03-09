@@ -10,11 +10,11 @@ public class controleur
     {
         // Declare the constants
         /** A constant representing an empty square on the board. */
-        private static final String NO_CHIP = Plateau.vide;
+        private static final String NO_CHIP = Plateau.VIDE;
         /** A constant representing a black peg on the board. */
-        private static final String BLACK_UP = Plateau.noir;
+        private static final String BLACK_UP = Plateau.NOIR;
         /** A constant representing a white peg on the board. */
-        private static final String WHITE_UP = Plateau.blanc;
+        private static final String WHITE_UP = Plateau.BLANC;
         /** A constant indicating the size of the game board. */
         private static final int BOARD_SIZE = 8;
 
@@ -26,7 +26,7 @@ public class controleur
         private Joueur joueur1;
         private Joueur joueur2;
 
-        private String[] iaDispo = new String[]{"Naif", "MinMax"};
+        private String[] IADISPO = new String[]{"Naif", "MinMax"};
         public controleur(Ihm ihm)
         {
             // initialisation du plateau de jeu
@@ -54,7 +54,7 @@ public class controleur
             /*
             DEFINITR LES JOUEURS ET RECUPERER LEUR NOMS => dans le constructeur
             */
-            // le premier coup est fait par le noir
+            // le premier coup est fait par le NOIR
             String move = BLACK_UP;
 
             // tant qu'il est encore possible de jouer
@@ -101,7 +101,7 @@ public class controleur
             this.rejouer();
         }
         public void playIA(){
-            String niv= Ihm.demanderNiveauIA(this.iaDispo);
+            String niv= Ihm.demanderNiveauIA(this.IADISPO);
             if (niv.equals("Naif")){
                 this.Naif();
             } else if (niv.equals("MinMax")) {
@@ -143,7 +143,7 @@ public class controleur
 
     /**
      * Cette methode determine si le joueur a fait un coup valide
-     * Un coup valide  : le joueur choisi une case vide
+     * Un coup valide  : le joueur choisi une case VIDE
      * POST: Retourne true si le coup est valide
      */
     private boolean validMove(String turn, int row, int col, ArrayList<Coup> coupsPossibles)
