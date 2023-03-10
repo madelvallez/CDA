@@ -33,13 +33,15 @@ public class Controleur {
         this.definirJoueur(); //definition et instanciation du joueur (anciennement joueur1)
         this.definirAdversaire();
         boolean veutRejouer = true;
-        while( veutRejouer){
+        while(veutRejouer){
             plateau.initialiser();
+            Ihm.Message(joueur.getNom()+" joue avec les pions "+ joueur.getCouleur()+" et"+
+                            adversaire.getNom()+" joue avec les pions" + adversaire.getCouleur());
             String tour = NOIR;
             while (!this.plateau.estFiniePartie()){
                 Coup coupJoue = this.demanderCoup(tour);
-                this.jouerCoup(coupJoue); // teste si le coup est passer puis l'applique correctement
-                tour = tour==NOIR ? BLANC : NOIR;
+                this.jouerCoup(coupJoue); // teste si le coup est -passer- puis l'applique correctement
+                tour = tour==NOIR ? BLANC : NOIR; //on passe au joueur suivant
             }
             //annonce victoire et scores de la partie
             int scoreJoueur = this.plateau.score(this.joueur.getCouleur());
@@ -58,7 +60,7 @@ public class Controleur {
 
     private void definirJoueur(){
         String nom1= recupererNom(1);
-        this.joueur = new Joueur(nom1,NOIR);
+        this.joueur = new JoueurHumain(nom1,NOIR);
     }
     private String recupererNom(int numJ){
         String nom = Ihm.DemanderNom(numJ);
@@ -78,17 +80,17 @@ public class Controleur {
             String rep = Ihm.demanderAdversaire();
             if ("non".equals(rep)) {
                 String nomAdv = Ihm.DemanderNom(2);
-                this.adversaire = new JoueurHumain(nomAdv);
+                this.adversaire = new JoueurHumain(nomAdv, BLANC);
                 defAdv=true;
             } else if ("oui".equals(rep)) {
                 boolean defNivIA = false;
                 while (!defNivIA) {
                     String rep2 = Ihm.demanderNiveauIA(IADISPO);
                     if (IADISPO[0].equals(rep2)) {
-                        this.adversaire = new JoueurIANaif(IADISPO[0]);
+                        this.adversaire = new JoueurIANaif(IADISPO[0], BLANC);
                         defNivIA = true;
                     } else if (IADISPO[1].equals(rep2)) {
-                        this.adversaire = new JoueurIAMoyen(IADISPO[1]);
+                        this.adversaire = new JoueurIAMoyen(IADISPO[1], BLANC);
                         defNivIA = true;
                     } else {
                         Ihm.MessageErreur("Répondre avec un nom parmis " + Arrays.toString(IADISPO));
