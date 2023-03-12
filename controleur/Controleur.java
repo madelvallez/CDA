@@ -89,9 +89,9 @@ public class Controleur {
                     if (IADISPO[0].equals(rep2)) {
                         this.adversaire = new JoueurIANaif(IADISPO[0], BLANC);
                         defNivIA = true;
-                    } else if (IADISPO[1].equals(rep2)) {
-                        this.adversaire = new JoueurIAMoyen(IADISPO[1], BLANC);
-                        defNivIA = true;
+//                    } else if (IADISPO[1].equals(rep2)) {
+//                        this.adversaire = new JoueurIAMoyen(IADISPO[1], BLANC);
+//                        defNivIA = true;
                     } else {
                         Ihm.MessageErreur("Répondre avec un nom parmis " + Arrays.toString(IADISPO));
                     }
