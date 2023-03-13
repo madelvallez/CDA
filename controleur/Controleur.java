@@ -4,14 +4,12 @@ import modele.Coup;
 import modele.Plateau;
 import vue.Ihm;
 import modele.Joueur;
-import modele.Adversaire;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import static modele.Plateau.BLANC;
 import static modele.Plateau.NOIR;
-import static modele.Plateau.VIDE;
 
 public class Controleur {
     private Ihm ihm;
