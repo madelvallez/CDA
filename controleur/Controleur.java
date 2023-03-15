@@ -1,9 +1,7 @@
 package controleur;
 
-import modele.Coup;
-import modele.Plateau;
+import modele.*;
 import vue.Ihm;
-import modele.Joueur;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +13,6 @@ public class Controleur {
     private Ihm ihm;
     private Plateau plateau;
     private final int dim = 8;
-
     private Joueur joueur;
     private Joueur adversaire;
     private final static String[] IADISPO = new String[]{"Naif", "MinMax"};
@@ -58,7 +55,7 @@ public class Controleur {
 
     private void definirJoueur(){
         String nom1= recupererNom(1);
-        this.joueur = new JoueurHumain(nom1,NOIR);
+        this.joueur = new JoueurHumain(nom1,NOIR,false);
     }
     private String recupererNom(int numJ){
         String nom = Ihm.DemanderNom(numJ);
@@ -78,14 +75,14 @@ public class Controleur {
             String rep = Ihm.demanderAdversaire();
             if ("non".equals(rep)) {
                 String nomAdv = Ihm.DemanderNom(2);
-                this.adversaire = new JoueurHumain(nomAdv, BLANC);
+                this.adversaire = new JoueurHumain(nomAdv, BLANC,false);
                 defAdv=true;
             } else if ("oui".equals(rep)) {
                 boolean defNivIA = false;
                 while (!defNivIA) {
                     String rep2 = Ihm.demanderNiveauIA(IADISPO);
                     if (IADISPO[0].equals(rep2)) {
-                        this.adversaire = new JoueurIANaif(IADISPO[0], BLANC);
+                        this.adversaire = new JoueurIANaif(IADISPO[0], BLANC,true);
                         defNivIA = true;
 //                    } else if (IADISPO[1].equals(rep2)) {
 //                        this.adversaire = new JoueurIAMoyen(IADISPO[1], BLANC);
