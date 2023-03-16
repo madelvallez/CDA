@@ -1,9 +1,7 @@
 package controleur;
 
-import modele.Coup;
-import modele.Plateau;
+import modele.*;
 import vue.Ihm;
-import modele.Joueur;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +31,7 @@ public class Controleur {
         boolean veutRejouer = true;
         while(veutRejouer){
             plateau.initialiser();
-            Ihm.Message(joueur.getNom()+" joue avec les pions "+ joueur.getCouleur()+" et"+
+            Ihm.Message(joueur.getNom()+" joue avec les pions "+ joueur.getCouleur()+" et "+
                             adversaire.getNom()+" joue avec les pions" + adversaire.getCouleur());
             String tour = NOIR;
             while (!this.plateau.estFiniePartie()){
@@ -58,7 +56,7 @@ public class Controleur {
 
     private void definirJoueur(){
         String nom1= recupererNom(1);
-        this.joueur = new JoueurHumain(nom1,NOIR);
+        this.joueur = new JoueurHumain(nom1,NOIR,false);
     }
     private String recupererNom(int numJ){
         String nom = Ihm.DemanderNom(numJ);
@@ -78,17 +76,17 @@ public class Controleur {
             String rep = Ihm.demanderAdversaire();
             if ("non".equals(rep)) {
                 String nomAdv = Ihm.DemanderNom(2);
-                this.adversaire = new JoueurHumain(nomAdv, BLANC);
+                this.adversaire = new JoueurHumain(nomAdv, BLANC,false);
                 defAdv=true;
             } else if ("oui".equals(rep)) {
                 boolean defNivIA = false;
                 while (!defNivIA) {
                     String rep2 = Ihm.demanderNiveauIA(IADISPO);
                     if (IADISPO[0].equals(rep2)) {
-                        this.adversaire = new JoueurIANaif(IADISPO[0], BLANC);
+                        this.adversaire = new JoueurIANaif(IADISPO[0], BLANC,true);
                         defNivIA = true;
 //                    } else if (IADISPO[1].equals(rep2)) {
-//                        this.adversaire = new JoueurIAMoyen(IADISPO[1], BLANC);
+//                        this.adversaire = new JoueurIAMoyen(IADISPO[1], BLANC, true);
 //                        defNivIA = true;
                     } else {
                         Ihm.MessageErreur("Répondre avec un nom parmis " + Arrays.toString(IADISPO));
@@ -103,8 +101,13 @@ public class Controleur {
     }
 
     private Coup demanderCoup(String couleur) {
+        Ihm.AfficherPlateau(plateau);
+        int[] emplacement = new int[2];
+        if(!joueurCourant(couleur).getIa()){
+            emplacement=Ihm.DemanderCoup(joueurCourant(couleur).getNom(),false);
+        }
         ArrayList<Coup> coupsPossibles = this.plateau.listeCoupsPossibles(couleur);
-        return joueurCourant(couleur).choisirCoup(coupsPossibles);
+        return joueurCourant(couleur).choisirCoup(coupsPossibles,emplacement);
     }
 
     private Joueur joueurCourant(String couleur){

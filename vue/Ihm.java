@@ -10,8 +10,8 @@ public class Ihm {
 
     public Ihm(){    }
 
-    public static void AfficherPlateau(Plateau grille) {
-        System.out.println(grille);
+    public static void AfficherPlateau(Plateau plateau) {
+        System.out.println(plateau);
     }
 
     public static String DemanderNom(int i){
@@ -44,7 +44,7 @@ public class Ihm {
         try {
             a = sc.nextInt();
         }catch(InputMismatchException e){
-            a = -1;
+            a = 0;
         }
         String b = sc.next();
         a--;

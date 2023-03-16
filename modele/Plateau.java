@@ -27,6 +27,7 @@ public class Plateau {
         for (int i=65; i<65+this.DIM; i++){
             res+= ("   " +String.valueOf((char)i));
         }
+        res+="\n";
         for (int i=0; i< this.DIM; i++){
             res = res + Integer.toString(i+1);
             for(int j=0; j<this.DIM; j++){
