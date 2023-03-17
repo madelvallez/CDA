@@ -13,7 +13,6 @@ public class Controleur {
     private Ihm ihm;
     private Plateau plateau;
     private final int dim = 8;
-
     private Joueur joueur;
     private Joueur adversaire;
     private final static String[] IADISPO = new String[]{"Naif", "MinMax"};
