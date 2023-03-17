@@ -39,6 +39,7 @@ public class Controleur {
                 this.jouerCoup(coupJoue); // teste si le coup est -passer- puis l'applique correctement
                 tour = tour==NOIR ? BLANC : NOIR; //on passe au joueur suivant
             }
+            Ihm.AfficherPlateau(plateau);
             //annonce victoire et scores de la partie
             int scoreJoueur = this.plateau.score(this.joueur.getCouleur());
             int scoreAdversaire = this.plateau.score(this.adversaire.getCouleur());
@@ -51,7 +52,9 @@ public class Controleur {
 
 
             veutRejouer = rejouer();
+
         }
+        Ihm.AffichageVictoire(joueur.getNom(), adversaire.getNom(), joueur.getNbVictoires(), adversaire.getNbVictoires());
     }
 
     private void definirJoueur(){
@@ -89,7 +92,7 @@ public class Controleur {
 //                        this.adversaire = new JoueurIAMoyen(IADISPO[1], BLANC, true);
 //                        defNivIA = true;
                     } else {
-                        Ihm.MessageErreur("Répondre avec un nom parmis " + Arrays.toString(IADISPO));
+                        Ihm.MessageErreur("Répondre avec un nom parmi " + Arrays.toString(IADISPO));
                     }
                 }
                 defAdv=true;
@@ -103,11 +106,27 @@ public class Controleur {
     private Coup demanderCoup(String couleur) {
         Ihm.AfficherPlateau(plateau);
         int[] emplacement = new int[2];
-        if(!joueurCourant(couleur).getIa()){
-            emplacement=Ihm.DemanderCoup(joueurCourant(couleur).getNom(),false);
+        Coup coupChoisi = new Coup();
+        boolean bienJoue = false;
+        while (!bienJoue) {
+            if (!joueurCourant(couleur).getIa()) {
+
+                emplacement = Ihm.DemanderCoup(joueurCourant(couleur).getNom(), true, this.dim);
+
+            }
+            ArrayList<Coup> coupsPossibles = this.plateau.listeCoupsPossibles(couleur);
+            coupChoisi = joueurCourant(couleur).choisirCoup(coupsPossibles, emplacement);
+            if (coupChoisi.getX()!=-1 && coupChoisi.getY()!=-1){
+                bienJoue=true;
+            }else{
+                Ihm.MessageErreur("Ce Coup n'est pas valide");
+
+            }
+            if (joueurCourant(couleur).getIa()) {
+                Ihm.afficherCoupJoue(joueurCourant(couleur).getNom(), coupChoisi.getX(), coupChoisi.getY());
+            }
         }
-        ArrayList<Coup> coupsPossibles = this.plateau.listeCoupsPossibles(couleur);
-        return joueurCourant(couleur).choisirCoup(coupsPossibles,emplacement);
+        return coupChoisi;
     }
 
     private Joueur joueurCourant(String couleur){
@@ -127,37 +146,7 @@ public class Controleur {
         }
     }
 
-    private boolean estCoupValide(int row, int col, ArrayList<Coup> coupsPossibles){
-        /*
-         * prend les indices pour une ligne et une colonne et la liste des coups possibles
-         * teste si le coup (row, col) est légal
-         */
-        if (0<= row && row <this.dim && 0<=col && col<this.dim) { //test si les coordonnées sont légales
-            //teste si le coup est dans la liste des coupsPossibles (donc si il est possible)
-            for (Coup coup : coupsPossibles) {
-                if (coup.getX() == row && coup.getY() == col) {
-                    return true;
-                }
-            }
-            return false;
-        }
-        else{
-            return false;
-        }
-    }
-    private int indiceCoup(int x, int y, ArrayList<Coup> coupsPossibles){
-        /*
-         * prend les coordonnées d'n coup valide 
-         * renvoie le coup correspondant dans la liste
-         */
-        for(int i =0; i<coupsPossibles.size(); i++){
-            Coup coup = coupsPossibles.get(i);
-            if (coup.getX() == x && coup.getY()==y){
-                return i;
-            }
-        }
-        return -1;
-    }
+
 
     private boolean rejouer(){
         while (true) {
@@ -170,7 +159,6 @@ public class Controleur {
                 Ihm.ErreurFin();
             }
         }
-
     }
 
 }
@@ -211,6 +199,32 @@ public class Controleur {
                     if(coupAdv.getX()!=-2) {
                         this.plateau.appliqueCoup(coupAdv);
                     }
+
+    private boolean estCoupValide(int row, int col, ArrayList<Coup> coupsPossibles){
+            if (0<= row && row <this.dim && 0<=col && col<this.dim) { //test si les coordonnées sont légales
+            //teste si le coup est dans la liste des coupsPossibles (donc si il est possible)
+            for (Coup coup : coupsPossibles) {
+            if (coup.getX() == row && coup.getY() == col) {
+            return true;
+            }
+            }
+            return false;
+            }
+            else{
+            return false;
+            }
+            }
+    private int indiceCoup(int x, int y, ArrayList<Coup> coupsPossibles){
+
+            for(int i =0; i<coupsPossibles.size(); i++){
+            Coup coup = coupsPossibles.get(i);
+            if (coup.getX() == x && coup.getY()==y){
+            return i;
+            }
+            }
+            return -1;
+            }
+
 
 
 */

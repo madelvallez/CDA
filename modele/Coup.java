@@ -38,6 +38,10 @@ public class Coup{
     public Coup(){
         this(-1,-1, NOIR);
     }
+    public static Coup coupPasser(){
+        return new Coup(-2, -2, NOIR);
+    }
+
 
     @Override
     public String toString() {

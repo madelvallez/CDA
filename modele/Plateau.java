@@ -87,11 +87,11 @@ public class Plateau {
         //a un effet sur la ligne ------------------------------------------------------------------------------
         //cote gauche de la ligne
         int j=y-1;
-        while (j>=0 && coulOpp.equals(this.grille[x][y])){
+        while (j>=0 && coulOpp.equals(this.grille[x][j])){
             j--;
         }
         //si on sort et que on n'as pas trouvé un bord, on verifie que le pion suivant est de la bonne couleur
-        if (j>=0 && coul.equals(this.grille[x][y]) && j<y-1){
+        if (j>=0 && coul.equals(this.grille[x][j]) && j<y-1){
             coup.getG().setX(x) ;        // ^pour eviter le cas couleur a cote d'elle même
             coup.getG().setY(j);
             coup.setAEffet(true);
