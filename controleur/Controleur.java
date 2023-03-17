@@ -110,11 +110,12 @@ public class Controleur {
     }
 
     private Coup demanderCoup(String couleur) {
-        Ihm.AfficherPlateau(plateau);
+
         int[] emplacement = new int[2];
         Coup coupChoisi = new Coup();
         boolean bienJoue = false;
         while (!bienJoue) {
+            Ihm.AfficherPlateau(plateau);
             if (!joueurCourant(couleur).getIa()) {
 
                 emplacement = Ihm.DemanderCoup(joueurCourant(couleur).getNom(), true, this.dim);

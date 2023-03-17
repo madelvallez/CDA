@@ -111,8 +111,8 @@ public class Ihm {
         System.out.println((nom2 + " a obtenu " + (Integer)j2 + " pions"));
     }
     public  static void AffichageVictoire(String nom1, String nom2, int j1, int j2){
-        System.out.println(nom1 +" a " + (Integer)j1 + "victoires");
-        System.out.println(nom2 +" a " + (Integer)j2 + "victoires");
+        System.out.println(nom1 +" a " + (Integer)j1 + " victoires");
+        System.out.println(nom2 +" a " + (Integer)j2 + " victoires");
 
     }
 
