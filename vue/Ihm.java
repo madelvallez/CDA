@@ -34,7 +34,8 @@ public class Ihm {
         return sc.next();
     }
     public static int[] DemanderCoup(String nom , boolean erreur, int DIM){
-        System.out.println(nom +", Veuillez renseigner coup de la forme de un Nombre puis un espace puis une Lettre  ou P pour passer");
+        System.out.println(nom +", Veuillez renseigner coup de la forme de un Nombre puis un espace puis une Lettre  ou P pour passer"+"\n"
+                +"Si vous souhaitez arrêter vueiller mettre arret");
         if (erreur) {
             System.out.println("Rappel : Un coup est dit valide s'il retourne au moins un pion.");
         }
@@ -76,6 +77,11 @@ public class Ihm {
             }
         }
 
+        if (b.equals("arret")){
+            c= -3;
+            a=-3;
+        }
+
         if (b.equals("P")) {
             return new int[] {-2,-2};
         }
@@ -83,6 +89,8 @@ public class Ihm {
         emplacement[0]=a;
         emplacement[1]=c;
         return emplacement;
+
+
     }
 
     public static String MessageRejouer (){
