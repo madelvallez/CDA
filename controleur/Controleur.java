@@ -18,6 +18,7 @@ public class Controleur {
     private Joueur adversaire;
     private final static String[] IADISPO = new String[]{"Naif", "MinMax"};
 
+    private boolean continuer = true ;
     public Controleur(Ihm ihm){
         this.ihm = ihm;
         this.plateau = new Plateau(this.dim);
@@ -34,10 +35,16 @@ public class Controleur {
             Ihm.Message(joueur.getNom()+" joue avec les pions "+ joueur.getCouleur()+" et "+
                             adversaire.getNom()+" joue avec les pions" + adversaire.getCouleur());
             String tour = NOIR;
-            while (!this.plateau.estFiniePartie()){
+            while (!this.plateau.estFiniePartie() && continuer){
                 Coup coupJoue = this.demanderCoup(tour);
-                this.jouerCoup(coupJoue); // teste si le coup est -passer- puis l'applique correctement
-                tour = tour==NOIR ? BLANC : NOIR; //on passe au joueur suivant
+                if (coupJoue.getX() != -3) {
+                    this.jouerCoup(coupJoue); // teste si le coup est -passer- puis l'applique correctement
+                    tour = tour==NOIR ? BLANC : NOIR; //on passe au joueur suivant
+                }else{
+                    continuer=false;
+                    veutRejouer=false;
+                }
+
             }
             Ihm.AfficherPlateau(plateau);
             //annonce victoire et scores de la partie
@@ -49,9 +56,9 @@ public class Controleur {
                 this.adversaire.incrementeNbVictoires();
             }
             Ihm.AffichageScore(this.joueur.getNom(), this.adversaire.getNom(), scoreJoueur, scoreAdversaire);
-
-
-            veutRejouer = rejouer();
+            if (continuer) {
+                veutRejouer = rejouer();
+            }
 
         }
         Ihm.AffichageVictoire(joueur.getNom(), adversaire.getNom(), joueur.getNbVictoires(), adversaire.getNbVictoires());
@@ -114,8 +121,12 @@ public class Controleur {
                 emplacement = Ihm.DemanderCoup(joueurCourant(couleur).getNom(), true, this.dim);
 
             }
-            ArrayList<Coup> coupsPossibles = this.plateau.listeCoupsPossibles(couleur);
-            coupChoisi = joueurCourant(couleur).choisirCoup(coupsPossibles, emplacement);
+            if (emplacement[0]!=-3){
+                ArrayList<Coup> coupsPossibles = this.plateau.listeCoupsPossibles(couleur);
+                coupChoisi = joueurCourant(couleur).choisirCoup(coupsPossibles, emplacement);
+            }else{
+                coupChoisi=new Coup(emplacement[0],emplacement[1],NOIR);
+            }
             if (coupChoisi.getX()!=-1 && coupChoisi.getY()!=-1){
                 bienJoue=true;
             }else{
