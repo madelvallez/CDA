@@ -23,7 +23,10 @@ public class Plateau {
 
     @Override
     public String toString() {
-        String res = "   A   B   C   D   E    F   G   H"+"\n";
+        String res = "";
+        for (int i=65; i<65+this.DIM; i++){
+            res+= ("   " +String.valueOf((char)i));
+        }
         for (int i=0; i< this.DIM; i++){
             res = res + Integer.toString(i+1);
             for(int j=0; j<this.DIM; j++){
