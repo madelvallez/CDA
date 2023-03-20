@@ -92,7 +92,7 @@ public class Controleur {
                 while (!defNivIA) {
                     String rep2 = Ihm.demanderNiveauIA(IADISPO);
                     if (IADISPO[0].equals(rep2)) {
-                        this.adversaire = new JoueurIANaif(IADISPO[0], BLANC,true);
+                        this.adversaire = new JoueurIA(IADISPO[0], BLANC,true,rep2);
                         defNivIA = true;
 //                    } else if (IADISPO[1].equals(rep2)) {
 //                        this.adversaire = new JoueurIAMoyen(IADISPO[1], BLANC, true);
@@ -116,29 +116,35 @@ public class Controleur {
         boolean bienJoue = false;
         while (!bienJoue) {
             Ihm.AfficherPlateau(plateau);
+            ArrayList<Coup> coupsPossibles = this.plateau.listeCoupsPossibles(couleur);
             if (!joueurCourant(couleur).getIa()) {
-
                 emplacement = Ihm.DemanderCoup(joueurCourant(couleur).getNom(), couleur, true, this.dim);
-
-            }
-            if (emplacement[0]!=-3 && emplacement[1]!=-3){
-                ArrayList<Coup> coupsPossibles = this.plateau.listeCoupsPossibles(couleur);
-                coupChoisi = joueurCourant(couleur).choisirCoup(coupsPossibles, emplacement);
+                if (emplacement[0]!=-3 && emplacement[1]!=-3){
+                    if (emplacement[0]==-2 && emplacement[1]==-2 && coupsPossibles.size()==0){
+                        coupChoisi=Coup.coupPasser();
+                    }else{
+                        for (Coup i : coupsPossibles) {
+                            if (i.getX() == emplacement[0] && i.getY() == emplacement[1]) {
+                                coupChoisi = i;
+                            }
+                        }
+                    }
+                }else{
+                    coupChoisi=new Coup(emplacement[0],emplacement[1],NOIR);
+                }
             }else{
-                coupChoisi=new Coup(emplacement[0],emplacement[1],NOIR);
+                coupChoisi=((JoueurIA)joueurCourant(couleur)).choisirCoup(coupsPossibles);
+                Ihm.afficherCoupJoue(joueurCourant(couleur).getNom(), coupChoisi.getX(), coupChoisi.getY());
             }
             if (coupChoisi.getX()!=-1 && coupChoisi.getY()!=-1){
                 bienJoue=true;
             }else{
                 Ihm.MessageErreur("Ce Coup n'est pas valide");
-
-            }
-            if (joueurCourant(couleur).getIa()) {
-                Ihm.afficherCoupJoue(joueurCourant(couleur).getNom(), coupChoisi.getX(), coupChoisi.getY());
             }
         }
         return coupChoisi;
     }
+
 
     private Joueur joueurCourant(String couleur){
         if(this.joueur.getCouleur().equals(couleur)){
