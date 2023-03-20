@@ -54,6 +54,10 @@ public class Controleur {
             } else if (scoreJoueur<scoreAdversaire) {
                 this.adversaire.incrementeNbVictoires();
             }
+            if (!adversaire.getIa()){ //on echange les couleurs si les deux joueurs sont humain
+                adversaire.setCouleur(NOIR.equals(adversaire.getCouleur()) ? BLANC:NOIR);
+                joueur.setCouleur(NOIR.equals(joueur.getCouleur()) ? BLANC:NOIR);
+            }
             Ihm.affichageScore(this.joueur.getNom(), this.adversaire.getNom(), scoreJoueur, scoreAdversaire);
             if (continuer) {
                 veutRejouer = rejouer();
