@@ -31,7 +31,7 @@ public class Controleur {
         boolean veutRejouer = true;
         while(veutRejouer){
             plateau.initialiser();
-            Ihm.Message(joueur.getNom()+" joue avec les pions "+ joueur.getCouleur()+" et "+
+            Ihm.message(joueur.getNom()+" joue avec les pions "+ joueur.getCouleur()+" et "+
                             adversaire.getNom()+" joue avec les pions" + adversaire.getCouleur());
             String tour = NOIR;
             while (!this.plateau.estFiniePartie() && continuer){
@@ -45,7 +45,7 @@ public class Controleur {
                 }
 
             }
-            Ihm.AfficherPlateau(plateau);
+            Ihm.afficherPlateau(plateau);
             //annonce victoire et scores de la partie
             int scoreJoueur = this.plateau.score(this.joueur.getCouleur());
             int scoreAdversaire = this.plateau.score(this.adversaire.getCouleur());
@@ -54,13 +54,13 @@ public class Controleur {
             } else if (scoreJoueur<scoreAdversaire) {
                 this.adversaire.incrementeNbVictoires();
             }
-            Ihm.AffichageScore(this.joueur.getNom(), this.adversaire.getNom(), scoreJoueur, scoreAdversaire);
+            Ihm.affichageScore(this.joueur.getNom(), this.adversaire.getNom(), scoreJoueur, scoreAdversaire);
             if (continuer) {
                 veutRejouer = rejouer();
             }
 
         }
-        Ihm.AffichageVictoire(joueur.getNom(), adversaire.getNom(), joueur.getNbVictoires(), adversaire.getNbVictoires());
+        Ihm.affichageVictoire(joueur.getNom(), adversaire.getNom(), joueur.getNbVictoires(), adversaire.getNbVictoires());
     }
 
     private void definirJoueur(){
@@ -68,12 +68,12 @@ public class Controleur {
         this.joueur = new JoueurHumain(nom1,NOIR,false);
     }
     private String recupererNom(int numJ){
-        String nom = Ihm.DemanderNom(numJ);
+        String nom = Ihm.demanderNom(numJ);
         if (nom.equals("")){
             return recupererNom(numJ);
         }
         if (numJ==2 && nom.equals(this.joueur.getNom())){
-            Ihm.MessageErreur("Tu ne peux pas donner le même nom que ton adversaire");
+            Ihm.messageErreur("Tu ne peux pas donner le même nom que ton adversaire");
             return recupererNom(numJ);
         }
         return nom;
@@ -84,7 +84,7 @@ public class Controleur {
         while (!defAdv) {
             String rep = Ihm.demanderAdversaire();
             if ("non".equals(rep)) {
-                String nomAdv = Ihm.DemanderNom(2);
+                String nomAdv = Ihm.demanderNom(2);
                 this.adversaire = new JoueurHumain(nomAdv, BLANC,false);
                 defAdv=true;
             } else if ("oui".equals(rep)) {
@@ -98,13 +98,13 @@ public class Controleur {
 //                        this.adversaire = new JoueurIAMoyen(IADISPO[1], BLANC, true);
 //                        defNivIA = true;
                     } else {
-                        Ihm.MessageErreur("Répondre avec un nom parmi " + Arrays.toString(IADISPO));
+                        Ihm.messageErreur("Répondre avec un nom parmi " + Arrays.toString(IADISPO));
                     }
                 }
                 defAdv=true;
             }
             else{
-                Ihm.MessageErreur("Repondre avec oui ou non");
+                Ihm.messageErreur("Repondre avec oui ou non");
             }
         }
     }
@@ -115,10 +115,10 @@ public class Controleur {
         Coup coupChoisi = new Coup();
         boolean bienJoue = false;
         while (!bienJoue) {
-            Ihm.AfficherPlateau(plateau);
+            Ihm.afficherPlateau(plateau);
             ArrayList<Coup> coupsPossibles = this.plateau.listeCoupsPossibles(couleur);
             if (!joueurCourant(couleur).getIa()) {
-                emplacement = Ihm.DemanderCoup(joueurCourant(couleur).getNom(), couleur, true, this.dim);
+                emplacement = Ihm.demanderCoup(joueurCourant(couleur).getNom(), couleur, true, this.dim);
                 if (emplacement[0]!=-3 && emplacement[1]!=-3){
                     if (emplacement[0]==-2 && emplacement[1]==-2 && coupsPossibles.size()==0){
                         coupChoisi=Coup.coupPasser();
@@ -139,7 +139,7 @@ public class Controleur {
             if (coupChoisi.getX()!=-1 && coupChoisi.getY()!=-1){
                 bienJoue=true;
             }else{
-                Ihm.MessageErreur("Ce Coup n'est pas valide");
+                Ihm.messageErreur("Ce Coup n'est pas valide");
             }
         }
         return coupChoisi;
@@ -157,7 +157,7 @@ public class Controleur {
 
     private void jouerCoup(Coup coup){
         if (coup.getX()==-2 && coup.getY()==-2){
-            Ihm.Message(this.adversaire.getNom()+" a passé son tour");
+            Ihm.message(this.adversaire.getNom()+" a passé son tour");
         }else{
             this.plateau.appliqueCoup(coup);
         }
@@ -167,13 +167,13 @@ public class Controleur {
 
     private boolean rejouer(){
         while (true) {
-            String rep = Ihm.MessageRejouer();
+            String rep = Ihm.messageRejouer();
             if ("oui".equals(rep)) {
                 return true;
             } else if ("non".equals(rep)) {
                 return false;
             }else{
-                Ihm.ErreurFin();
+                Ihm.erreurFin();
             }
         }
     }

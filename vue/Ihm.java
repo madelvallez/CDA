@@ -10,11 +10,11 @@ public class Ihm {
 
     public Ihm(){    }
 
-    public static void AfficherPlateau(Plateau plateau) {
+    public static void afficherPlateau(Plateau plateau) {
         System.out.println(plateau);
     }
 
-    public static String DemanderNom(int i){
+    public static String demanderNom(int i){
         System.out.println("Quelle est le nom du joueur "+i+" ?");
         Scanner sc= new Scanner(System.in);
         return sc.next();
@@ -33,7 +33,7 @@ public class Ihm {
         Scanner sc = new Scanner(System.in);
         return sc.next();
     }
-    public static int[] DemanderCoup(String nom ,String couleur ,boolean erreur, int DIM){
+    public static int[] demanderCoup(String nom ,String couleur ,boolean erreur, int DIM){
         System.out.println(nom +"("+couleur+"), Veuillez renseigner coup de la forme de un Nombre puis un espace puis une Lettre  ou P pour passer"+"\n"
                 +"Si vous souhaitez arrêter vueiller mettre arret");
         if (erreur) {
@@ -93,30 +93,30 @@ public class Ihm {
 
     }
 
-    public static String MessageRejouer (){
+    public static String messageRejouer(){
         System.out.println("Souhaitez vous rejouer (Oui /Non) ?");
         Scanner sc = new Scanner(System.in);
         return sc.next();
     }
 
-    public static void ErreurFin(){
+    public static void erreurFin(){
         System.out.println("Veuiller ne mettre que Oui ou Non comme réponse");
     }
 
-    public static void MessageErreur(String erreur){
+    public static void messageErreur(String erreur){
         System.out.println(erreur);
     }
-    public static void AffichageScore(String nom1, String nom2, int j1, int j2){
+    public static void affichageScore(String nom1, String nom2, int j1, int j2){
         System.out.println(nom1 + " a obtenu "+ (Integer)j1 + " pions");
         System.out.println((nom2 + " a obtenu " + (Integer)j2 + " pions"));
     }
-    public  static void AffichageVictoire(String nom1, String nom2, int j1, int j2){
+    public  static void affichageVictoire(String nom1, String nom2, int j1, int j2){
         System.out.println(nom1 +" a " + (Integer)j1 + " victoires");
         System.out.println(nom2 +" a " + (Integer)j2 + " victoires");
 
     }
 
-    public static void Message(String msg) {
+    public static void message(String msg) {
         System.out.println(msg);
     }
 
