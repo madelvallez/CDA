@@ -36,7 +36,7 @@ public class Controleur {
             String tour = NOIR;
             while (!this.plateau.estFiniePartie() && continuer){
                 Coup coupJoue = this.demanderCoup(tour);
-                if (coupJoue.getX() != -3) {
+                if (coupJoue.getX() != -3 && coupJoue.getY()!=-3) {
                     this.jouerCoup(coupJoue); // teste si le coup est -passer- puis l'applique correctement
                     tour = tour==NOIR ? BLANC : NOIR; //on passe au joueur suivant
                 }else{
@@ -110,17 +110,18 @@ public class Controleur {
     }
 
     private Coup demanderCoup(String couleur) {
-        Ihm.AfficherPlateau(plateau);
+
         int[] emplacement = new int[2];
         Coup coupChoisi = new Coup();
         boolean bienJoue = false;
         while (!bienJoue) {
+            Ihm.AfficherPlateau(plateau);
             if (!joueurCourant(couleur).getIa()) {
 
-                emplacement = Ihm.DemanderCoup(joueurCourant(couleur).getNom(), true, this.dim);
+                emplacement = Ihm.DemanderCoup(joueurCourant(couleur).getNom(), couleur, true, this.dim);
 
             }
-            if (emplacement[0]!=-3){
+            if (emplacement[0]!=-3 && emplacement[1]!=-3){
                 ArrayList<Coup> coupsPossibles = this.plateau.listeCoupsPossibles(couleur);
                 coupChoisi = joueurCourant(couleur).choisirCoup(coupsPossibles, emplacement);
             }else{

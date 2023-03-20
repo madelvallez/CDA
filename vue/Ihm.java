@@ -33,8 +33,8 @@ public class Ihm {
         Scanner sc = new Scanner(System.in);
         return sc.next();
     }
-    public static int[] DemanderCoup(String nom , boolean erreur, int DIM){
-        System.out.println(nom +", Veuillez renseigner coup de la forme de un Nombre puis un espace puis une Lettre  ou P pour passer"+"\n"
+    public static int[] DemanderCoup(String nom ,String couleur ,boolean erreur, int DIM){
+        System.out.println(nom +"("+couleur+"), Veuillez renseigner coup de la forme de un Nombre puis un espace puis une Lettre  ou P pour passer"+"\n"
                 +"Si vous souhaitez arrêter vueiller mettre arret");
         if (erreur) {
             System.out.println("Rappel : Un coup est dit valide s'il retourne au moins un pion.");
@@ -111,8 +111,8 @@ public class Ihm {
         System.out.println((nom2 + " a obtenu " + (Integer)j2 + " pions"));
     }
     public  static void AffichageVictoire(String nom1, String nom2, int j1, int j2){
-        System.out.println(nom1 +" a " + (Integer)j1 + "victoires");
-        System.out.println(nom2 +" a " + (Integer)j2 + "victoires");
+        System.out.println(nom1 +" a " + (Integer)j1 + " victoires");
+        System.out.println(nom2 +" a " + (Integer)j2 + " victoires");
 
     }
 

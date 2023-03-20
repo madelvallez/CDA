@@ -1,5 +1,7 @@
 package modele;
 //coordonnées comme couple d'entiers (-1,-1) est la coord erreur
+//coordonnées représentant Passer : (-2, -2)
+// coordonnée représentant fin de partie : (-3,-3)
 public class  Coord implements Comparable<Coord>{
     private int x;
     private int y;
