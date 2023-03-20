@@ -9,16 +9,9 @@ public class JoueurHumain extends Joueur{
         super(nom, couleur, ia);
     }
 
-    @Override
-    public Coup choisirCoup(ArrayList<Coup> coupsPossibles, int[] emplacment) {
-        Coup c = new Coup();
-        for ( Coup i : coupsPossibles){
-            if (i.getX()==emplacment[0]&&i.getY()==emplacment[1]){
-                c=i;
-            }
-        }
-        return c;
-    }
+
+
+
 
 
 }

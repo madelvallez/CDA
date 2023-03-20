@@ -56,5 +56,5 @@ public abstract class Joueur {
         this.nbVictoires++;
     }
 
-    public abstract Coup choisirCoup (ArrayList<Coup> coupsPossibles,int[] emplacment);
+
 }
