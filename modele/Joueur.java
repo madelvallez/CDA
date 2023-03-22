@@ -12,7 +12,7 @@ public abstract class Joueur {
     private final boolean EST_IA ;
 
     public Joueur(String nom, String couleur,boolean ia)throws CouleurException{
-        if ((couleur != NOIR)&& (couleur!= BLANC)){
+        if ((!NOIR.equals(couleur))&& (!BLANC.equals(couleur))){
             throw new CouleurException(couleur +" n'est pas une couleur de jeu");
         }
         this.nom = nom;
