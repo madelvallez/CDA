@@ -66,6 +66,9 @@ public class JoueurIA implements Joueur{
                 return Coup.coupPasser();
             }
             return coupsPossibles.get((int)( Math.random() * coupsPossibles.size()));
+//        }else if (this.niveau.equals("MinMax")){
+//
+//            miniMax.miniMax(2,0, true, score, score.size());
         }
         return null;
     }
