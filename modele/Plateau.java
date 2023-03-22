@@ -299,4 +299,18 @@ public class Plateau {
     public String[][] getGrille() {
         return grille;
     }
+
+    public Plateau copie(){
+        Plateau p = new Plateau(this.DIM);
+        for(int i =0; i<this.DIM; i++){
+            for(int j =0; j<this.DIM; j++){
+                p.grille[i][j] = this.grille[i][j];
+            }
+        }
+        return p;
+    }
+
+    public static  String opposeCouleur(String coul ){
+        return NOIR.equals(coul)? BLANC: NOIR;
+    }
 }
