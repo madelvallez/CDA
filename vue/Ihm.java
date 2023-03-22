@@ -15,7 +15,7 @@ public class Ihm {
     }
 
     public static String demanderNom(int i){
-        System.out.println("Quelle est le nom du joueur "+i+" ?");
+        System.out.println("Quel est le nom du joueur "+i+" ?");
         Scanner sc= new Scanner(System.in);
         return sc.next();
     }
@@ -35,7 +35,7 @@ public class Ihm {
     }
     public static int[] demanderCoup(String nom ,String couleur ,boolean erreur, int DIM){
         System.out.println(nom +"("+couleur+"), Veuillez renseigner coup de la forme de un Nombre puis un espace puis une Lettre  ou P pour passer"+"\n"
-                +"Si vous souhaitez arrêter vueiller mettre arret");
+                +"Si vous souhaitez arrêter, veuillez écrire arret");
         if (erreur) {
             System.out.println("Rappel : Un coup est dit valide s'il retourne au moins un pion.");
         }

@@ -69,7 +69,7 @@ public class Controleur {
 
     private void definirJoueur(){
         String nom1= recupererNom(1);
-        this.joueur = new JoueurHumain(nom1,NOIR,false);
+        this.joueur = new JoueurHumain(nom1,NOIR);
     }
     private String recupererNom(int numJ){
         String nom = Ihm.demanderNom(numJ);
@@ -89,14 +89,14 @@ public class Controleur {
             String rep = Ihm.demanderAdversaire();
             if ("non".equals(rep)) {
                 String nomAdv = Ihm.demanderNom(2);
-                this.adversaire = new JoueurHumain(nomAdv, BLANC,false);
+                this.adversaire = new JoueurHumain(nomAdv, BLANC);
                 defAdv=true;
             } else if ("oui".equals(rep)) {
                 boolean defNivIA = false;
                 while (!defNivIA) {
                     String rep2 = Ihm.demanderNiveauIA(IADISPO);
                     if (IADISPO[0].equals(rep2)) {
-                        this.adversaire = new JoueurIA(IADISPO[0], BLANC,true,rep2);
+                        this.adversaire = new JoueurIA(IADISPO[0], BLANC,rep2);
                         defNivIA = true;
 //                    } else if (IADISPO[1].equals(rep2)) {
 //                        this.adversaire = new JoueurIAMoyen(IADISPO[1], BLANC, true);
