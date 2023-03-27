@@ -313,4 +313,8 @@ public class Plateau {
     public static  String opposeCouleur(String coul ){
         return NOIR.equals(coul)? BLANC: NOIR;
     }
+
+    public int getDIM() {
+        return DIM;
+    }
 }
