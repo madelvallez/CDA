@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 public class FeuilleConfigurations extends ArbreConfigurations{
 
-    public FeuilleConfigurations(Plateau pere, Coup c, String couleur, boolean isMax, int prof){
-        super(pere, c, couleur, isMax, prof);
+    public FeuilleConfigurations(Plateau p, Coup c, String couleur, boolean isMax, int prof){
+        super(p, c, couleur, isMax);
+        ArrayList<Coup> fantome = null;
+        this.minMax(fantome, prof);
     }
 
 
     @Override
-    void minMax() {
+    void minMax(ArrayList<Coup> coupsPossibles, int prof) {
         if (this.getP().estFiniePartie()) { //si c'est une configuration finale
             //cherher qui a gagné
             int nbPionJoueur = this.getP().score(this.getCouleur());
