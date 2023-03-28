@@ -1,25 +1,28 @@
 package modele;
 
-public class FeuilleConfigurations implements ArbreConfigurations{
-    private int score;
+import java.util.ArrayList;
 
-    @Override
-    public ArbreConfigurations minMax() {
-        return null;
+public class FeuilleConfigurations extends ArbreConfigurations{
+
+    public FeuilleConfigurations(Plateau pere, Coup c, String couleur, boolean isMax, int prof){
+        super(pere, c, couleur, isMax, prof);
     }
 
-    @Override
-    public int fonctionEvaluation() {
-        return 0;
-    }
 
     @Override
-    public int getScore() {
-        return score;
-    }
+    void minMax() {
+        if (this.getP().estFiniePartie()) { //si c'est une configuration finale
+            //cherher qui a gagné
+            int nbPionJoueur = this.getP().score(this.getCouleur());
+            int nbPionAdv = this.getP().score(Plateau.opposeCouleur(this.getCouleur()));
+            if (nbPionAdv > nbPionJoueur) {
+                this.setScore(-1000);
+            } else {
+                this.setScore(1000);
+            }
+        }else{
+            this.setScore(this.fonctionEvaluation());
+        }
 
-    @Override
-    public int compareTo(ArbreConfigurations arbreConfigurations) {
-        return score - arbreConfigurations.getScore();
     }
 }

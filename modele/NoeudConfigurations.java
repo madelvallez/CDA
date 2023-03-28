@@ -3,32 +3,25 @@ package modele;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-public class NoeudConfigurations implements ArbreConfigurations{
-    private int score;
-    private Plateau p;
-    private Coup c;
-    private String couleur;
-    private boolean isMax;
+public class NoeudConfigurations extends ArbreConfigurations{
+    ;
     private TreeSet<ArbreConfigurations> fils;
     private ArbreConfigurations meilleurFils;
 
-    public NoeudConfigurations(Plateau pere, Coup c,String couleur, boolean isMax){
-        this.c = c;
-        this.p = pere.copie();
-        this.p.appliqueCoup(this.c);
-        this.isMax= isMax;
-        this.couleur = couleur;
+    public NoeudConfigurations(Plateau pere, Coup c,String couleur, boolean isMax, int prof){
+        super(pere,c,couleur,isMax, prof);
 
 
 
-        this.meilleurFils = this.minMax();
-        this.score = this.meilleurFils.getScore();
+
+        this.meilleurFils = trouverMeilleurFils();
+        this.setScore(this.meilleurFils.getScore());
 
     }
 
 
     @Override
-    public ArbreConfigurations minMax() {
+    public void minMax() {
 //        ArrayList<Coup> coupsPossibles = this.p.listeCoupsPossibles(this.couleur);
 //        if (coupsPossibles.size()==0){ //si pas de coup possible
 //            if (this.p.estFiniePartie()){ //si c'est une configuration finale
@@ -69,23 +62,16 @@ public class NoeudConfigurations implements ArbreConfigurations{
 //                return meilleur;
 //            }
 //        }
-        return null;
+    }
+
+    private ArbreConfigurations trouverMeilleurFils() throws RuntimeException{
+        for (ArbreConfigurations f : this.fils){
+            if (f.getScore()== this.getScore()){
+                return f;
+            }
+        }
+        throw new RuntimeException("Le score de ce Noeud ne correspond à aucun score de ses fils... Un bug dans minMax?");
     }
 
 
-
-    @Override
-    public int fonctionEvaluation() {
-        return 0;
-    }
-
-    @Override
-    public int compareTo(ArbreConfigurations arbreConfigurations) {
-        return score - arbreConfigurations.getScore();
-    }
-
-    @Override
-    public int getScore(){
-        return score;
-    }
 }
