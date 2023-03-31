@@ -3,11 +3,11 @@ package modele;
 import java.util.ArrayList;
 
 public abstract class ArbreConfigurations implements Comparable<ArbreConfigurations> {
-    private int score;
-    private Plateau p;
-    private Coup c;
-    private String couleur;
-    private boolean isMax;
+    private int score; //issu du calcul de minMax ou de la fonction d'evaluation
+    private Plateau p;//configuration sur laquelle on reflechit (le coup donné est deja joué)
+    private Coup c;//coup appliqué pour obtenir cette situation
+    private String couleur;//couleur du coup joué en dernier
+    private boolean isMax;//si on cherche à maximiser ou minimiser le score dans ce noeud (vis à vis de ses fils)
 
     public ArbreConfigurations(Plateau p, Coup c, String couleur, boolean isMax){
         this.c = c;
@@ -35,7 +35,23 @@ public abstract class ArbreConfigurations implements Comparable<ArbreConfigurati
 //    }
     abstract void minMax(ArrayList<Coup> coupsPossibles, int prof);
     public int fonctionEvaluation(){
-        return 0;
+        int DIM = this.p.getDIM();
+        int score = 0;
+        String coulOpp = Plateau.opposeCouleur(this.couleur); //on évalue du point de vue de la prochaine personne à jouer (et qui ne joue pas)
+        for(int i=0; i<DIM; i++){
+            for(int j=0; j<DIM; j++){
+                if (coulOpp.equals(this.p.getGrille()[i][j])) {
+                    if (((i == 0) && (j == 0)) || ((i == 0) && (j == DIM - 1)) || ((i == DIM - 1) && (j == 0)) || ((i == DIM - 1) && (j == DIM - 1))) {
+                        score += 11;
+                    } else if ((i == 0) || (j == 0) || (i == DIM - 1) || (j == DIM - 1)) {
+                        score += 6;
+                    } else {
+                        score += 1;
+                    }
+                }
+            }
+        }
+        return score;
     }
 
     public int getScore(){

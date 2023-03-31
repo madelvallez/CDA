@@ -1,11 +1,12 @@
 package modele;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.ArrayList;
-import java.util.TreeSet;
 
 public class NoeudConfigurations extends ArbreConfigurations{
-    ;
-    private TreeSet<ArbreConfigurations> fils;
+
+    private List<ArbreConfigurations> fils=new ArrayList();
     private ArbreConfigurations meilleurFils;
 
     public NoeudConfigurations(Plateau p, Coup c,String couleur, boolean isMax, int prof,ArrayList<Coup> coupsPossibles){
@@ -14,13 +15,14 @@ public class NoeudConfigurations extends ArbreConfigurations{
     }
 
 
+
     @Override
     public void minMax(ArrayList<Coup> coupsPossibles, int prof) {
         //creation des fils
         assert coupsPossibles.size() != 0;
         String couleurFils = Plateau.opposeCouleur(this.getCouleur());
         if (prof==1){//les fils sont tous des feuilles quoi qui se passe
-            for (Coup coup : coupsPossibles) {//recuperartion des infos et instanciation des fils comme feuille
+            for (Coup coup : coupsPossibles) {//recuperation des infos et instanciation des fils comme feuille
                 Plateau plateau = this.getP().copie();
                 plateau.appliqueCoup(coup);
                 this.fils.add(new FeuilleConfigurations(plateau, coup, couleurFils, !this.isMax(), 0));
@@ -32,7 +34,7 @@ public class NoeudConfigurations extends ArbreConfigurations{
                 ArrayList<Coup> coupsPossFils = plateau.listeCoupsPossibles(couleurFils);
                 if (coupsPossFils.size() == 0 && plateau.estFiniePartie()) {//partie finie donc feuille
                     this.fils.add(new FeuilleConfigurations(plateau, coup, couleurFils, !this.isMax(), prof - 1));
-                } else if (coupsPossFils.size() == 0) {//partie pas finie donc CoupPasser donc noeud
+                } else if (coupsPossFils.size() == 0) {//partie pas finie donc CoupPasser donc Noeud
                     coupsPossFils.add(Coup.coupPasser());
                     this.fils.add(new NoeudConfigurations(plateau, coup, couleurFils, !this.isMax(), prof - 1, coupsPossFils));
                 } else {
@@ -42,9 +44,9 @@ public class NoeudConfigurations extends ArbreConfigurations{
         }
         //recherche du meilleur coup
         if (this.isMax()) {
-            this.meilleurFils = this.fils.first();
+            this.meilleurFils = Collections.max(this.fils); //le plus grand
         } else {
-            this.meilleurFils = this.fils.last();
+            this.meilleurFils = Collections.min(this.fils); //le plus petit
         }
         //recuperation du score
         this.setScore(this.meilleurFils.getScore());

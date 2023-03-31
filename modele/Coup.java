@@ -38,8 +38,18 @@ public class Coup{
     public Coup(){
         this(-1,-1, NOIR);
     }
-    public static Coup coupPasser(){
+    public static Coup coupPasser(){ //coup représentant le fait de passer son tour
         return new Coup(-2, -2, NOIR);
+    }
+    public static Coup coupIllegal(){ //coup représentant un coup (de joueur humain) invalide ou en attente
+        return new Coup(-1,-1, NOIR);
+    }
+    public static Coup coupFinPartie(){ //coup représentant le choix de mettre fin au jeu (arret)
+        return new Coup(-3, -3, NOIR);
+    }
+
+    public static Coup coupDejaAppliqué(String couleur){
+        return new Coup(-4, -4, couleur);
     }
 
 

@@ -98,9 +98,9 @@ public class Controleur {
                     if (IADISPO[0].equals(rep2)) {
                         this.adversaire = new JoueurIA(IADISPO[0], BLANC,rep2);
                         defNivIA = true;
-//                    } else if (IADISPO[1].equals(rep2)) {
-//                        this.adversaire = new JoueurIAMoyen(IADISPO[1], BLANC, true);
-//                        defNivIA = true;
+                    } else if (IADISPO[1].equals(rep2)) {
+                        this.adversaire = new JoueurIA(IADISPO[1], BLANC, rep2);
+                        defNivIA = true;
                     } else {
                         Ihm.messageErreur("Répondre avec un nom parmi " + Arrays.toString(IADISPO));
                     }
@@ -137,7 +137,7 @@ public class Controleur {
                     coupChoisi=new Coup(emplacement[0],emplacement[1],NOIR);
                 }
             }else{
-                coupChoisi=((JoueurIA)joueurCourant(couleur)).choisirCoup(coupsPossibles);
+                coupChoisi=((JoueurIA)joueurCourant(couleur)).choisirCoup(coupsPossibles, this.plateau);
                 Ihm.afficherCoupJoue(joueurCourant(couleur).getNom(), coupChoisi.getX(), coupChoisi.getY());
             }
             if (coupChoisi.getX()!=-1 && coupChoisi.getY()!=-1){
@@ -172,9 +172,9 @@ public class Controleur {
     private boolean rejouer(){
         while (true) {
             String rep = Ihm.messageRejouer();
-            if ("oui".equals(rep)) {
+            if ("Oui".equals(rep)) {
                 return true;
-            } else if ("non".equals(rep)) {
+            } else if ("Non".equals(rep)) {
                 return false;
             }else{
                 Ihm.erreurFin();
