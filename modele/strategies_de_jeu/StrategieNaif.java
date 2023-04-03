@@ -1,5 +1,6 @@
-package modele;
+package modele.strategies_de_jeu;
 
+import modele.plateau.*;
 import java.util.ArrayList;
 import java.util.List;
 

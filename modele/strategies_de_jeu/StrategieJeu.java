@@ -1,6 +1,7 @@
-package modele;
+package modele.strategies_de_jeu;
 
 import java.util.List;
+import modele.plateau.*;
 
 public interface StrategieJeu {
 

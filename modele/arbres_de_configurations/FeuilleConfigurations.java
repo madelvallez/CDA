@@ -1,5 +1,6 @@
-package modele;
+package modele.arbres_de_configurations;
 
+import modele.plateau.*;
 import java.util.List;
 
 public class FeuilleConfigurations extends ArbreConfigurations{
@@ -23,7 +24,7 @@ public class FeuilleConfigurations extends ArbreConfigurations{
                 this.setScore(1000);
             }
         }else{
-            this.setScore((StrategieMinMax).fonctionEvaluation(this.getP(), this.getCouleur()));
+            this.setScore(this.fonctionEvaluation());
         }
 
     }

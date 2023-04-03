@@ -1,9 +1,9 @@
-package modele;
+package modele.joueurs;
 
 import java.util.ArrayList;
-
-import static modele.Plateau.BLANC;
-import static modele.Plateau.NOIR;
+import modele.plateau.CouleurException;
+import static modele.plateau.Plateau.BLANC;
+import static modele.plateau.Plateau.NOIR;
 
 public class JoueurHumain implements Joueur{
 

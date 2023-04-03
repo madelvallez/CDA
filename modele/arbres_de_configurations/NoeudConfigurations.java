@@ -1,8 +1,9 @@
-package modele;
+package modele.arbres_de_configurations;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
+import modele.plateau.*;
 
 public class NoeudConfigurations extends ArbreConfigurations{
 

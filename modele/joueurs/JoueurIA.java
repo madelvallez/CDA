@@ -1,9 +1,10 @@
-package modele;
+package modele.joueurs;
 
-import java.util.ArrayList;
-
-import static modele.Plateau.BLANC;
-import static modele.Plateau.NOIR;
+import java.util.List;
+import modele.strategies_de_jeu.*;
+import modele.plateau.*;
+import static modele.plateau.Plateau.BLANC;
+import static modele.plateau.Plateau.NOIR;
 
 public class JoueurIA implements Joueur {
     private String nom;
@@ -62,13 +63,13 @@ public class JoueurIA implements Joueur {
     }
 
 
-    public Coup choisirCoup(ArrayList<Coup> coupsPossibles, Plateau plateau) {
+    public Coup choisirCoup(List<Coup> coupsPossibles, Plateau plateau) {
         return strategie.donnerCoup(coupsPossibles, plateau);
     }
 
-    private Coup jeuIAMinMax(Plateau plateau, ArrayList<Coup> coupsPossibles) {
-        Plateau p = plateau.copie();
-        ArbreConfigurations ia = new NoeudConfigurations(p, Coup.coupDejaAppliqué(couleur), couleur, true, 3, coupsPossibles);
-        return ((NoeudConfigurations)ia).getMeilleurCoup();
-    }
+//    private Coup jeuIAMinMax(Plateau plateau, ArrayList<Coup> coupsPossibles) {
+//        Plateau p = plateau.copie();
+//        ArbreConfigurations ia = new NoeudConfigurations(p, Coup.coupDejaAppliqué(couleur), couleur, true, 3, coupsPossibles);
+//        return ((NoeudConfigurations)ia).getMeilleurCoup();
+//    }
 }

@@ -1,13 +1,14 @@
 package controleur;
 
-import modele.*;
+import modele.plateau.*;
+import modele.joueurs.*;
 import vue.Ihm;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static modele.Plateau.BLANC;
-import static modele.Plateau.NOIR;
+import static modele.plateau.Plateau.BLANC;
+import static modele.plateau.Plateau.NOIR;
 
 public class Controleur {
     private Ihm ihm;

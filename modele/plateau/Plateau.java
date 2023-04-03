@@ -1,4 +1,4 @@
-package modele;
+package modele.plateau;
 
 import java.util.ArrayList;
 import static java.util.Arrays.fill;
