@@ -5,8 +5,8 @@ import static java.util.Arrays.fill;
 
 public class Plateau {
 
-    public final static String BLANC = " \u26AA  ";
-    public final static String NOIR = " \u26AB  ";
+    public final static String BLANC = " \u26AA ";
+    public final static String NOIR = " \u26AB ";
     public final static String VIDE = " \uD83D\uDFE9 ";
     private String[][] grille ;
     private final int DIM;
