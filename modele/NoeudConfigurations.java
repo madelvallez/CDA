@@ -19,7 +19,9 @@ public class NoeudConfigurations extends ArbreConfigurations{
     @Override
     public void minMax(ArrayList<Coup> coupsPossibles, int prof) {
         //creation des fils
-        assert coupsPossibles.size() != 0;
+        if (coupsPossibles.size() != 0){ //il n'y a aucun coup possible, il faut passer
+            coupsPossibles.add(Coup.coupPasser());
+        }
         String couleurFils = Plateau.opposeCouleur(this.getCouleur());
         if (prof==1){//les fils sont tous des feuilles quoi qui se passe
             for (Coup coup : coupsPossibles) {//recuperation des infos et instanciation des fils comme feuille
