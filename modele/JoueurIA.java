@@ -64,17 +64,18 @@ public class JoueurIA implements Joueur {
 
     public Coup choisirCoup(ArrayList<Coup> coupsPossibles, Plateau plateau) {
         Coup choix = null;
-        if (this.niveau.equals("Naif")) {
-            if (coupsPossibles.size() == 0) {
-                choix =  Coup.coupPasser();
-            }else{
-                choix = coupsPossibles.get((int) (Math.random() * coupsPossibles.size()));
+        if (coupsPossibles.size() == 0) {
+            choix = Coup.coupPasser();
+        }else{
+            if (this.niveau.equals("Naif")) {
+            choix = coupsPossibles.get((int) (Math.random() * coupsPossibles.size()));
 
-            }
-        }else if (this.niveau.equals("MinMax")){
+            } else if (this.niveau.equals("MinMax")){
             choix = jeuIAMinMax(plateau, coupsPossibles);
 //            miniMax.miniMax(2,0, true, score, score.size());
+
         }
+    }
         return choix;
     }
 
