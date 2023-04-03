@@ -1,13 +1,14 @@
 package controleur;
 
-import modele.*;
+import modele.plateau.*;
+import modele.joueurs.*;
 import vue.Ihm;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static modele.Plateau.BLANC;
-import static modele.Plateau.NOIR;
+import static modele.plateau.Plateau.BLANC;
+import static modele.plateau.Plateau.NOIR;
 
 public class Controleur {
     private Ihm ihm;
@@ -15,7 +16,7 @@ public class Controleur {
     private final int dim = 8;
     private Joueur joueur;
     private Joueur adversaire;
-    private final static String[] IADISPO = new String[]{"Naif", "MinMax"};
+    private final static String[] IADISPO = new String[]{"Naif", "MinMax1"};
 
     private boolean continuer = true ;
     public Controleur(Ihm ihm){

@@ -1,15 +1,16 @@
-package modele;
+package modele.arbres_de_configurations;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
+import modele.plateau.*;
 
 public class NoeudConfigurations extends ArbreConfigurations{
 
     private List<ArbreConfigurations> fils=new ArrayList();
     private ArbreConfigurations meilleurFils;
 
-    public NoeudConfigurations(Plateau p, Coup c,String couleur, boolean isMax, int prof,ArrayList<Coup> coupsPossibles){
+    public NoeudConfigurations(Plateau p, Coup c,String couleur, boolean isMax, int prof,List<Coup> coupsPossibles){
         super(p,c,couleur,isMax);
         this.minMax(coupsPossibles, prof);
     }
@@ -17,7 +18,7 @@ public class NoeudConfigurations extends ArbreConfigurations{
 
 
     @Override
-    public void minMax(ArrayList<Coup> coupsPossibles, int prof) {
+    public void minMax(List<Coup> coupsPossibles, int prof) {
         //creation des fils
         if (coupsPossibles.size() != 0){ //il n'y a aucun coup possible, il faut passer
             coupsPossibles.add(Coup.coupPasser());

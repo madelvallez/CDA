@@ -1,6 +1,7 @@
-package modele;
+package modele.arbres_de_configurations;
 
-import java.util.ArrayList;
+import modele.plateau.*;
+import java.util.List;
 
 public abstract class ArbreConfigurations implements Comparable<ArbreConfigurations> {
     private int score; //issu du calcul de minMax ou de la fonction d'evaluation
@@ -33,7 +34,7 @@ public abstract class ArbreConfigurations implements Comparable<ArbreConfigurati
 //            }
 //        }
 //    }
-    abstract void minMax(ArrayList<Coup> coupsPossibles, int prof);
+    abstract void minMax( List<Coup> coupsPossibles, int prof);
     public int fonctionEvaluation(){
         int DIM = this.p.getDIM();
         int score = 0;
@@ -82,6 +83,5 @@ public abstract class ArbreConfigurations implements Comparable<ArbreConfigurati
     public int compareTo(ArbreConfigurations arbreConfigurations) {
         return score - arbreConfigurations.getScore();
     }
-
 
 }
