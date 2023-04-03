@@ -2,7 +2,7 @@ package vue;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import modele.Plateau;
+import modele.plateau.Plateau;
 
 
 public class Ihm {
@@ -121,7 +121,9 @@ public class Ihm {
     }
 
     public static void afficherCoupJoue(String nomJ, int x, int y){
-        System.out.println(nomJ + " a joué en "+(Integer)(x+1) + " "+(String.valueOf((char)(y+65))));
+        if (x!=-2){
+            System.out.println(nomJ + " a joué en "+(Integer)(x+1) + " "+(String.valueOf((char)(y+65))));
+        }
     }
 }
 
