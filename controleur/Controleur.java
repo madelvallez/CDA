@@ -15,7 +15,7 @@ public class Controleur {
     private final int dim = 8;
     private Joueur joueur;
     private Joueur adversaire;
-    private final static String[] IADISPO = new String[]{"Naif", "MinMax"};
+    private final static String[] IADISPO = new String[]{"Naif", "MinMax1"};
 
     private boolean continuer = true ;
     public Controleur(Ihm ihm){

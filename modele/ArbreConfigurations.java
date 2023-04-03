@@ -1,6 +1,6 @@
 package modele;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class ArbreConfigurations implements Comparable<ArbreConfigurations> {
     private int score; //issu du calcul de minMax ou de la fonction d'evaluation
@@ -33,26 +33,26 @@ public abstract class ArbreConfigurations implements Comparable<ArbreConfigurati
 //            }
 //        }
 //    }
-    abstract void minMax(ArrayList<Coup> coupsPossibles, int prof);
-    public int fonctionEvaluation(){
-        int DIM = this.p.getDIM();
-        int score = 0;
-        String coulOpp = Plateau.opposeCouleur(this.couleur); //on évalue du point de vue de la prochaine personne à jouer (et qui ne joue pas)
-        for(int i=0; i<DIM; i++){
-            for(int j=0; j<DIM; j++){
-                if (coulOpp.equals(this.p.getGrille()[i][j])) {
-                    if (((i == 0) && (j == 0)) || ((i == 0) && (j == DIM - 1)) || ((i == DIM - 1) && (j == 0)) || ((i == DIM - 1) && (j == DIM - 1))) {
-                        score += 11;
-                    } else if ((i == 0) || (j == 0) || (i == DIM - 1) || (j == DIM - 1)) {
-                        score += 6;
-                    } else {
-                        score += 1;
-                    }
-                }
-            }
-        }
-        return score;
-    }
+    abstract void minMax( List<Coup> coupsPossibles, int prof);
+//    public int fonctionEvaluation(){
+//        int DIM = this.p.getDIM();
+//        int score = 0;
+//        String coulOpp = Plateau.opposeCouleur(this.couleur); //on évalue du point de vue de la prochaine personne à jouer (et qui ne joue pas)
+//        for(int i=0; i<DIM; i++){
+//            for(int j=0; j<DIM; j++){
+//                if (coulOpp.equals(this.p.getGrille()[i][j])) {
+//                    if (((i == 0) && (j == 0)) || ((i == 0) && (j == DIM - 1)) || ((i == DIM - 1) && (j == 0)) || ((i == DIM - 1) && (j == DIM - 1))) {
+//                        score += 11;
+//                    } else if ((i == 0) || (j == 0) || (i == DIM - 1) || (j == DIM - 1)) {
+//                        score += 6;
+//                    } else {
+//                        score += 1;
+//                    }
+//                }
+//            }
+//        }
+//        return score;
+//    }
 
     public int getScore(){
         return score;
@@ -82,6 +82,5 @@ public abstract class ArbreConfigurations implements Comparable<ArbreConfigurati
     public int compareTo(ArbreConfigurations arbreConfigurations) {
         return score - arbreConfigurations.getScore();
     }
-
 
 }

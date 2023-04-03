@@ -10,11 +10,7 @@ public class JoueurIA implements Joueur {
     private String couleur;
     private int nbVictoires;
 
-    private String niveau;
-
-    public String getNiveau() {
-        return niveau;
-    }
+    private StrategieJeu strategie;
 
     public JoueurIA(String nom, String couleur, String niveau) throws CouleurException {
         if ((!NOIR.equals(couleur)) && (!BLANC.equals(couleur))) {
@@ -23,7 +19,11 @@ public class JoueurIA implements Joueur {
         this.nom = nom;
         this.couleur = couleur;
         this.nbVictoires = 0;
-        this.niveau = niveau;
+        if ("Naif".equals(niveau)){
+            this.strategie = new StrategieNaif();
+        }else { // if ("MinMax1".equals(niveau))
+            this.strategie = new MinMax1(this.couleur);
+        }
     }
 
     public String toString() {
@@ -63,19 +63,7 @@ public class JoueurIA implements Joueur {
 
 
     public Coup choisirCoup(ArrayList<Coup> coupsPossibles, Plateau plateau) {
-        Coup choix = null;
-        if (this.niveau.equals("Naif")) {
-            if (coupsPossibles.size() == 0) {
-                choix =  Coup.coupPasser();
-            }else{
-                choix = coupsPossibles.get((int) (Math.random() * coupsPossibles.size()));
-
-            }
-        }else if (this.niveau.equals("MinMax")){
-            choix = jeuIAMinMax(plateau, coupsPossibles);
-//            miniMax.miniMax(2,0, true, score, score.size());
-        }
-        return choix;
+        return strategie.donnerCoup(coupsPossibles, plateau);
     }
 
     private Coup jeuIAMinMax(Plateau plateau, ArrayList<Coup> coupsPossibles) {
