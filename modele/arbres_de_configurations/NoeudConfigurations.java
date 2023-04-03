@@ -20,7 +20,7 @@ public class NoeudConfigurations extends ArbreConfigurations{
     @Override
     public void minMax(List<Coup> coupsPossibles, int prof) {
         //creation des fils
-        if (coupsPossibles.size() != 0){ //il n'y a aucun coup possible, il faut passer
+        if (coupsPossibles.size() == 0){ //il n'y a aucun coup possible, il faut passer
             coupsPossibles.add(Coup.coupPasser());
         }
         String couleurFils = Plateau.opposeCouleur(this.getCouleur());
