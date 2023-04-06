@@ -1,4 +1,5 @@
-package modele;
+package modele.joueurs;
+import modele.plateau.CouleurException;
 
 
 public interface Joueur {

@@ -1,4 +1,4 @@
-package modele;
+package modele.plateau;
 
 import java.util.ArrayList;
 import static java.util.Arrays.fill;
@@ -215,52 +215,54 @@ public class Plateau {
          * Applque le coup sur this.grille
          * /!\ le coup est supposé légal
          */
-        Coord coupleVIDE = new Coord();
-        String coul = coup.getCouleur();
-        // on place le pion
-        this.placerPion(coup.getCouleur(), coup.getX(), coup.getY());
-        //traitement de la ligne
-        if (!(coup.getG().equals(coupleVIDE))) {
-            for (int j = coup.getY()-1; j > coup.getG().getY(); j--) {
-                this.retournerPion(coup.getX(), j);
+        if (coup.getX() >= 0 && coup.getY() >= 0){ //si c'est ni coupPasser, ni coupDejaAppliqué, ni coupVide, coupIllegal,...
+            Coord coupleVIDE = new Coord();
+            String coul = coup.getCouleur();
+            // on place le pion
+            this.placerPion(coup.getCouleur(), coup.getX(), coup.getY());
+            //traitement de la ligne
+            if (!(coup.getG().equals(coupleVIDE))) {
+                for (int j = coup.getY() - 1; j > coup.getG().getY(); j--) {
+                    this.retournerPion(coup.getX(), j);
+                }
             }
-        }
-        if (!coup.getD().equals(coupleVIDE)){
-            for(int j = coup.getY()+1; j<coup.getD().getY(); j++){
-                this.retournerPion(coup.getX(), j);
+            if (!coup.getD().equals(coupleVIDE)) {
+                for (int j = coup.getY() + 1; j < coup.getD().getY(); j++) {
+                    this.retournerPion(coup.getX(), j);
+                }
             }
-        }
-        //traitement colonne
-        if (!coup.getH().equals(coupleVIDE)){
-            for(int i=coup.getX()-1; i>coup.getH().getX(); i--){
-                this.retournerPion(i,coup.getY());
+            //traitement colonne
+            if (!coup.getH().equals(coupleVIDE)) {
+                for (int i = coup.getX() - 1; i > coup.getH().getX(); i--) {
+                    this.retournerPion(i, coup.getY());
+                }
             }
-        }
-        if(!coup.getB().equals(coupleVIDE)){
-            for(int i=coup.getX()+1; i<coup.getB().getX(); i++){
-                this.retournerPion(i,coup.getY());
+            if (!coup.getB().equals(coupleVIDE)) {
+                for (int i = coup.getX() + 1; i < coup.getB().getX(); i++) {
+                    this.retournerPion(i, coup.getY());
+                }
             }
-        }
-        //traitemment diagonale hg_bd
-        if(!coup.getHg().equals(coupleVIDE)){
-            for(int i=coup.getX()-1, j=coup.getY()-1; (i>coup.getHg().getX() && j>coup.getHg().getY()); i--, j--){
-                this.retournerPion(i,j);
+            //traitemment diagonale hg_bd
+            if (!coup.getHg().equals(coupleVIDE)) {
+                for (int i = coup.getX() - 1, j = coup.getY() - 1; (i > coup.getHg().getX() && j > coup.getHg().getY()); i--, j--) {
+                    this.retournerPion(i, j);
+                }
             }
-        }
-        if(!coup.getBd().equals(coupleVIDE)){
-            for(int i=coup.getX()+1, j=coup.getY()+1; (i<coup.getBd().getX() && j<coup.getBd().getY()); i++,j++){
-                this.retournerPion(i,j);
+            if (!coup.getBd().equals(coupleVIDE)) {
+                for (int i = coup.getX() + 1, j = coup.getY() + 1; (i < coup.getBd().getX() && j < coup.getBd().getY()); i++, j++) {
+                    this.retournerPion(i, j);
+                }
             }
-        }
-        //traitement diagonale hd-bg
-        if(!coup.getHd().equals(coupleVIDE)){
-            for(int i=coup.getX()-1, j=coup.getY()+1; (i>coup.getHd().getX() && j<coup.getHd().getY()); i--, j++){
-                this.retournerPion(i,j);
+            //traitement diagonale hd-bg
+            if (!coup.getHd().equals(coupleVIDE)) {
+                for (int i = coup.getX() - 1, j = coup.getY() + 1; (i > coup.getHd().getX() && j < coup.getHd().getY()); i--, j++) {
+                    this.retournerPion(i, j);
+                }
             }
-        }
-        if(!coup.getBg().equals(coupleVIDE)){
-            for(int i=coup.getX()+1, j=coup.getY()-1; (i<coup.getBg().getX() && j>coup.getBg().getY()); i++, j--){
-                this.retournerPion(i,j);
+            if (!coup.getBg().equals(coupleVIDE)) {
+                for (int i = coup.getX() + 1, j = coup.getY() - 1; (i < coup.getBg().getX() && j > coup.getBg().getY()); i++, j--) {
+                    this.retournerPion(i, j);
+                }
             }
         }
     }
@@ -298,5 +300,23 @@ public class Plateau {
 
     public String[][] getGrille() {
         return grille;
+    }
+
+    public Plateau copie(){
+        Plateau p = new Plateau(this.DIM);
+        for(int i =0; i<this.DIM; i++){
+            for(int j =0; j<this.DIM; j++){
+                p.grille[i][j] = this.grille[i][j];
+            }
+        }
+        return p;
+    }
+
+    public static  String opposeCouleur(String coul ){
+        return NOIR.equals(coul)? BLANC: NOIR;
+    }
+
+    public int getDIM() {
+        return DIM;
     }
 }
