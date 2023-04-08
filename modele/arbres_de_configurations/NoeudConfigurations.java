@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.ArrayList;
 
 import modele.joueurs.Joueur;
+import modele.joueurs.JoueurOthello;
 import modele.plateau.*;
 
 public class NoeudConfigurations extends ArbreConfigurations{
-
     private List<ArbreConfigurations> fils=new ArrayList<ArbreConfigurations>();
     private ArbreConfigurations meilleurFils;
 
@@ -25,12 +25,13 @@ public class NoeudConfigurations extends ArbreConfigurations{
         if (coupsPossibles.size() == 0){ //il n'y a aucun coup possible, il faut passer
             coupsPossibles.add(Coup.coupPasser());
         }
-        String couleurFils = PlateauOthello.opposeCouleur(this.getCouleur());
+        int numJFils = (getNumJ()+1)/2;
+        Joueur joueurFils = getJoueurs()[numJFils];
         if (prof==1){//les fils sont tous des feuilles quoi qui se passe
             for (Coup coup : coupsPossibles) {//recuperation des infos et instanciation des fils comme feuille
                 PlateauOthello plateau = this.getP().copie();
                 plateau.appliqueCoup(coup);
-                this.fils.add(new FeuilleConfigurations(plateau, coup, couleurFils, !this.isMax(), 0));
+                this.fils.add(new FeuilleConfigurations(plateau, coup, getJoueurs(), numJFils, !this.isMax(), 0));
             }
         }else {
             for (Coup coup : coupsPossibles) {//recuperartion des infos et instanciation des fils
@@ -38,7 +39,7 @@ public class NoeudConfigurations extends ArbreConfigurations{
                 plateau.appliqueCoup(coup);
                 ArrayList<Coup> coupsPossFils = plateau.listeCoupsPossibles(getJoueurCourant());
                 if (coupsPossFils.size() == 0 && plateau.estFiniePartie()) {//partie finie donc feuille
-                    this.fils.add(new FeuilleConfigurations(plateau, coup, couleurFils, !this.isMax(), prof - 1));
+                    this.fils.add(new FeuilleConfigurations(plateau, coup, getJoueurs(), numJFils, !this.isMax(), prof - 1));
                 } else if (coupsPossFils.size() == 0) {//partie pas finie donc CoupPasser donc Noeud
                     coupsPossFils.add(Coup.coupPasser());
                     this.fils.add(new NoeudConfigurations(plateau, coup, getJoueurs(), (getNumJ()+1)/2, !this.isMax(), prof - 1, coupsPossFils));
