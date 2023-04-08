@@ -4,8 +4,8 @@ import modele.plateau.CouleurException;
 
 import java.util.Objects;
 
-import static modele.plateau.Plateau.BLANC;
-import static modele.plateau.Plateau.NOIR;
+import static modele.plateau.PlateauOthello.BLANC;
+import static modele.plateau.PlateauOthello.NOIR;
 
 public abstract class JoueurOthello extends Joueur{
     private String couleur;

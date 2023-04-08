@@ -1,5 +1,6 @@
 package modele.strategies_de_jeu;
 
+import modele.joueurs.Joueur;
 import modele.plateau.*;
 import modele.arbres_de_configurations.*;
 import java.util.List;
@@ -11,10 +12,10 @@ public class MinMax1 extends StrategieMinMax{
 
 
     @Override
-    public Coup donnerCoup(List<Coup> coupsPossibles, Plateau plateau) {
+    public Coup donnerCoup(List<Coup> coupsPossibles, PlateauOthello plateau, Joueur[] joueurs ) {
         {
-            Plateau p = plateau.copie();
-            ArbreConfigurations ia = new NoeudConfigurations(p, Coup.coupDejaAppliqué(getCouleur()), getCouleur(), true, 3, coupsPossibles);
+            PlateauOthello p = plateau.copie();
+            ArbreConfigurations ia = new NoeudConfigurations(p, Coup.coupDejaAppliqué(getCouleur()), joueurs, 1, true, 3, coupsPossibles);
             return ((NoeudConfigurations) ia).getMeilleurCoup();
 
         }

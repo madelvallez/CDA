@@ -7,12 +7,12 @@ import vue.Ihm;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static modele.plateau.Plateau.BLANC;
-import static modele.plateau.Plateau.NOIR;
+import static modele.plateau.PlateauOthello.BLANC;
+import static modele.plateau.PlateauOthello.NOIR;
 
 public class Controleur {
     private Ihm ihm;
-    private Plateau plateau;
+    private PlateauOthello plateau;
     private final int dim = 8;
     private Joueur joueur;
     private Joueur adversaire;
@@ -21,7 +21,7 @@ public class Controleur {
     private boolean continuer = true ;
     public Controleur(Ihm ihm){
         this.ihm = ihm;
-        this.plateau = new Plateau(this.dim);
+        this.plateau = new PlateauOthello(this.dim);
 
     }
 
@@ -48,8 +48,8 @@ public class Controleur {
             }
             Ihm.afficherPlateau(plateau);
             //annonce victoire et scores de la partie
-            int scoreJoueur = this.plateau.score(((JoueurOthello)this.joueur).getCouleur());
-            int scoreAdversaire = this.plateau.score(((JoueurOthello)this.adversaire).getCouleur());
+            int scoreJoueur = this.plateau.score(this.joueur);
+            int scoreAdversaire = this.plateau.score(this.adversaire);
             if (scoreJoueur>scoreAdversaire){
                 this.joueur.incrementeNbVictoires();
             } else if (scoreJoueur<scoreAdversaire) {
@@ -121,7 +121,7 @@ public class Controleur {
         boolean bienJoue = false;
         while (!bienJoue) {
             Ihm.afficherPlateau(plateau);
-            ArrayList<Coup> coupsPossibles = this.plateau.listeCoupsPossibles(couleur);
+            ArrayList<Coup> coupsPossibles = this.plateau.listeCoupsPossibles(joueurCourant(couleur));
             if (!(joueurCourant(couleur) instanceof JoueurIA)) {
                 emplacement = Ihm.demanderCoup(joueurCourant(couleur).getNom(), couleur, true, this.dim);
                 if (emplacement[0]!=-3 && emplacement[1]!=-3){
@@ -138,7 +138,7 @@ public class Controleur {
                     coupChoisi=new Coup(emplacement[0],emplacement[1],NOIR);
                 }
             }else{
-                coupChoisi=((JoueurIA)joueurCourant(couleur)).choisirCoup(coupsPossibles, this.plateau);
+                coupChoisi=((JoueurIA)joueurCourant(couleur)).choisirCoup(coupsPossibles, this.plateau, joueur);
                 Ihm.afficherCoupJoue(joueurCourant(couleur).getNom(), coupChoisi.getX(), coupChoisi.getY());
             }
             if (coupChoisi.getX()!=-1 && coupChoisi.getY()!=-1){
@@ -151,7 +151,7 @@ public class Controleur {
     }
 
 
-    private Joueur joueurCourant(String couleur){
+    public Joueur joueurCourant(String couleur){
         if(((JoueurOthello)this.joueur).getCouleur().equals(couleur)){
             return this.joueur;
         }

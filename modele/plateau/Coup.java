@@ -1,7 +1,7 @@
 package modele.plateau;
 
-import static modele.plateau.Plateau.BLANC;
-import static modele.plateau.Plateau.NOIR;
+import static modele.plateau.PlateauOthello.BLANC;
+import static modele.plateau.PlateauOthello.NOIR;
 
 public class Coup{
     private boolean aEffet ;

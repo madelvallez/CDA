@@ -1,8 +1,8 @@
 package modele.joueurs;
 
 import modele.plateau.CouleurException;
-import static modele.plateau.Plateau.BLANC;
-import static modele.plateau.Plateau.NOIR;
+import static modele.plateau.PlateauOthello.BLANC;
+import static modele.plateau.PlateauOthello.NOIR;
 
 public class JoueurHumainOthello extends JoueurOthello implements JoueurHumain {
 

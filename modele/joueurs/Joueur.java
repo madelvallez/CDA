@@ -1,8 +1,4 @@
 package modele.joueurs;
-import modele.plateau.CouleurException;
-
-import static modele.plateau.Plateau.BLANC;
-import static modele.plateau.Plateau.NOIR;
 
 
 public abstract class Joueur {

@@ -3,8 +3,6 @@ package modele.joueurs;
 import java.util.List;
 import modele.strategies_de_jeu.*;
 import modele.plateau.*;
-import static modele.plateau.Plateau.BLANC;
-import static modele.plateau.Plateau.NOIR;
 
 public class JoueurIAOthello extends JoueurOthello implements JoueurIA {
 
@@ -23,12 +21,12 @@ public class JoueurIAOthello extends JoueurOthello implements JoueurIA {
         return true;
     }
 
-    public Coup choisirCoup(List<Coup> coupsPossibles, Plateau plateau) {
-        return strategie.donnerCoup(coupsPossibles, plateau);
+    public Coup choisirCoup(List<Coup> coupsPossibles, PlateauOthello plateau, Joueur j) {
+        return strategie.donnerCoup(coupsPossibles, plateau, new Joueur[] {j, this});
     }
 
-//    private Coup jeuIAMinMax(Plateau plateau, ArrayList<Coup> coupsPossibles) {
-//        Plateau p = plateau.copie();
+//    private Coup jeuIAMinMax(PlateauOthello plateau, ArrayList<Coup> coupsPossibles) {
+//        PlateauOthello p = plateau.copie();
 //        ArbreConfigurations ia = new NoeudConfigurations(p, Coup.coupDejaAppliqué(couleur), couleur, true, 3, coupsPossibles);
 //        return ((NoeudConfigurations)ia).getMeilleurCoup();
 //    }

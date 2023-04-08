@@ -2,7 +2,7 @@ package vue;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import modele.plateau.Plateau;
+import modele.plateau.PlateauOthello;
 
 
 public class Ihm {
@@ -10,7 +10,7 @@ public class Ihm {
 
     public Ihm(){    }
 
-    public static void afficherPlateau(Plateau plateau) {
+    public static void afficherPlateau(PlateauOthello plateau) {
         System.out.println(plateau);
     }
 
