@@ -17,8 +17,6 @@ public class NoeudConfigurations extends ArbreConfigurations{
         this.minMax(coupsPossibles, prof);
     }
 
-
-
     @Override
     public void minMax(List<Coup> coupsPossibles, int prof) {
         //creation des fils
