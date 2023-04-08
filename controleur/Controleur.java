@@ -32,14 +32,14 @@ public class Controleur {
         boolean veutRejouer = true;
         while(veutRejouer){
             plateau.initialiser();
-            Ihm.message(joueur.getNom()+" joue avec les pions "+ joueur.getCouleur()+" et "+
-                            adversaire.getNom()+" joue avec les pions" + adversaire.getCouleur());
+            Ihm.message(joueur.getNom()+" joue avec les pions "+ ((JoueurOthello)joueur).getCouleur()+" et "+
+                            adversaire.getNom()+" joue avec les pions" + ((JoueurOthello)adversaire).getCouleur());
             String tour = NOIR;
             while (!this.plateau.estFiniePartie() && continuer){
                 Coup coupJoue = this.demanderCoup(tour);
                 if (coupJoue.getX() != -3 && coupJoue.getY()!=-3) {
                     this.jouerCoup(coupJoue); // teste si le coup est -passer- puis l'applique correctement
-                    tour = tour==NOIR ? BLANC : NOIR; //on passe au joueur suivant
+                    tour = NOIR.equals(tour) ? BLANC : NOIR; //on passe au joueur suivant
                 }else{
                     continuer=false;
                     veutRejouer=false;
@@ -48,16 +48,16 @@ public class Controleur {
             }
             Ihm.afficherPlateau(plateau);
             //annonce victoire et scores de la partie
-            int scoreJoueur = this.plateau.score(this.joueur.getCouleur());
-            int scoreAdversaire = this.plateau.score(this.adversaire.getCouleur());
+            int scoreJoueur = this.plateau.score(((JoueurOthello)this.joueur).getCouleur());
+            int scoreAdversaire = this.plateau.score(((JoueurOthello)this.adversaire).getCouleur());
             if (scoreJoueur>scoreAdversaire){
                 this.joueur.incrementeNbVictoires();
             } else if (scoreJoueur<scoreAdversaire) {
                 this.adversaire.incrementeNbVictoires();
             }
-            if (!adversaire.getIa()){ //on echange les couleurs si les deux joueurs sont humain
-                adversaire.setCouleur(NOIR.equals(adversaire.getCouleur()) ? BLANC:NOIR);
-                joueur.setCouleur(NOIR.equals(joueur.getCouleur()) ? BLANC:NOIR);
+            if (!(adversaire instanceof JoueurIA)){ //on echange les couleurs si les deux joueurs sont humain
+                ((JoueurOthello)adversaire).setCouleur(NOIR.equals(((JoueurOthello)adversaire).getCouleur()) ? BLANC:NOIR);
+                ((JoueurOthello)joueur).setCouleur(NOIR.equals(((JoueurOthello)joueur).getCouleur()) ? BLANC:NOIR);
             }
             Ihm.affichageScore(this.joueur.getNom(), this.adversaire.getNom(), scoreJoueur, scoreAdversaire);
             if (continuer) {
@@ -70,7 +70,7 @@ public class Controleur {
 
     private void definirJoueur(){
         String nom1= recupererNom(1);
-        this.joueur = new JoueurHumain(nom1,NOIR);
+        this.joueur = (Joueur)(new JoueurHumainOthello(nom1,NOIR));
     }
     private String recupererNom(int numJ){
         String nom = Ihm.demanderNom(numJ);
@@ -90,17 +90,17 @@ public class Controleur {
             String rep = Ihm.demanderAdversaire();
             if ("non".equals(rep)) {
                 String nomAdv = Ihm.demanderNom(2);
-                this.adversaire = new JoueurHumain(nomAdv, BLANC);
+                this.adversaire = new JoueurHumainOthello(nomAdv, BLANC);
                 defAdv=true;
             } else if ("oui".equals(rep)) {
                 boolean defNivIA = false;
                 while (!defNivIA) {
                     String rep2 = Ihm.demanderNiveauIA(IADISPO);
                     if (IADISPO[0].equals(rep2)) {
-                        this.adversaire = new JoueurIA(IADISPO[0], BLANC,rep2);
+                        this.adversaire = new JoueurIAOthello(IADISPO[0], BLANC,rep2);
                         defNivIA = true;
                     } else if (IADISPO[1].equals(rep2)) {
-                        this.adversaire = new JoueurIA(IADISPO[1], BLANC, rep2);
+                        this.adversaire = new JoueurIAOthello(IADISPO[1], BLANC, rep2);
                         defNivIA = true;
                     } else {
                         Ihm.messageErreur("Répondre avec un nom parmi " + Arrays.toString(IADISPO));
@@ -122,7 +122,7 @@ public class Controleur {
         while (!bienJoue) {
             Ihm.afficherPlateau(plateau);
             ArrayList<Coup> coupsPossibles = this.plateau.listeCoupsPossibles(couleur);
-            if (!joueurCourant(couleur).getIa()) {
+            if (!(joueurCourant(couleur) instanceof JoueurIA)) {
                 emplacement = Ihm.demanderCoup(joueurCourant(couleur).getNom(), couleur, true, this.dim);
                 if (emplacement[0]!=-3 && emplacement[1]!=-3){
                     if (emplacement[0]==-2 && emplacement[1]==-2 && coupsPossibles.size()==0){
@@ -152,7 +152,7 @@ public class Controleur {
 
 
     private Joueur joueurCourant(String couleur){
-        if(this.joueur.getCouleur().equals(couleur)){
+        if(((JoueurOthello)this.joueur).getCouleur().equals(couleur)){
             return this.joueur;
         }
         else{
