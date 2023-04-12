@@ -80,13 +80,13 @@ public class PlateauOthello implements Plateau{
         }
         /* les cordonnées sont OK*/
         if (!(0<=x && x<this.DIM && 0<=y && y<this.DIM)){
-            return new Coup();
+            return CoupOthello.coupIllegal();
         }
         if (!VIDE.equals(grille[x][y])){
-            return new Coup();
+            return CoupOthello.coupIllegal();
         }
         String coulOpp = NOIR.equals(coul) ? BLANC : NOIR; //donne la couleur opposée
-        Coup coup = new Coup(x,y, coul);
+        CoupOthello coup = new CoupOthello(x,y, coul);
 
         //a un effet sur la ligne ------------------------------------------------------------------------------
         //cote gauche de la ligne
@@ -196,7 +196,7 @@ public class PlateauOthello implements Plateau{
         for (int i=0; i<this.DIM; i++){
             for (int j=0; j<this.DIM; j++){
                 coup = this.analyseCoup(i,j,coul);
-                if (coup.getaEffet()){
+                if (((CoupOthello)coup).getaEffet()){
                     liste.add(coup);
                 }
             }
@@ -216,11 +216,12 @@ public class PlateauOthello implements Plateau{
         this.grille[x][y] = NOIR.equals((this.grille[x][y])) ? BLANC :NOIR;
     }
 
-    public void appliqueCoup(Coup coup) {
+    public void appliqueCoup(Coup c) {
         /*
          * Applque le coup sur this.grille
          * /!\ le coup est supposé légal
          */
+        CoupOthello coup = (CoupOthello)c;
         if (coup.getX() >= 0 && coup.getY() >= 0){ //si c'est ni coupPasser, ni coupDejaAppliqué, ni coupVide, coupIllegal,...
             Coord coupleVIDE = new Coord();
             // on place le pion
@@ -298,11 +299,7 @@ public class PlateauOthello implements Plateau{
             return false;
         }
         ArrayList<Coup> coupsBLANC = listeCoupsPossibles(new JoueurHumainOthello("fantome", BLANC));
-        if(coupsBLANC.size()!=0){
-            return false;
-        }else {
-            return true;
-        }
+        return coupsBLANC.size() == 0;
     }
 
     public String[][] getGrille() {
