@@ -21,7 +21,7 @@ public class NoeudConfigurations extends ArbreConfigurations{
     public void minMax(List<Coup> coupsPossibles, int prof) {
         //creation des fils
         if (coupsPossibles.size() == 0){ //il n'y a aucun coup possible, il faut passer
-            coupsPossibles.add(Coup.coupPasser());
+            coupsPossibles.add(CoupOthello.coupPasser());
         }
         int numJFils = (getNumJ()+1)/2;
         Joueur joueurFils = getJoueurs()[numJFils];
@@ -39,7 +39,7 @@ public class NoeudConfigurations extends ArbreConfigurations{
                 if (coupsPossFils.size() == 0 && plateau.estFiniePartie()) {//partie finie donc feuille
                     this.fils.add(new FeuilleConfigurations(plateau, coup, getJoueurs(), numJFils, !this.isMax(), prof - 1));
                 } else if (coupsPossFils.size() == 0) {//partie pas finie donc CoupPasser donc Noeud
-                    coupsPossFils.add(Coup.coupPasser());
+                    coupsPossFils.add(CoupOthello.coupPasser());
                     this.fils.add(new NoeudConfigurations(plateau, coup, getJoueurs(), (getNumJ()+1)/2, !this.isMax(), prof - 1, coupsPossFils));
                 } else {
                     this.fils.add(new NoeudConfigurations(plateau, coup, getJoueurs(), (getNumJ()+1)/2, !this.isMax(), prof - 1, coupsPossFils));

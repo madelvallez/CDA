@@ -15,7 +15,7 @@ public class MinMax1 extends StrategieMinMax{
     public Coup donnerCoup(List<Coup> coupsPossibles, PlateauOthello plateau, Joueur[] joueurs ) {
         {
             PlateauOthello p = plateau.copie();
-            ArbreConfigurations ia = new NoeudConfigurations(p, Coup.coupDejaAppliqué(getCouleur()), joueurs, 1, true, 3, coupsPossibles);
+            ArbreConfigurations ia = new NoeudConfigurations(p, CoupOthello.coupDejaAppliqué(getCouleur()), joueurs, 1, true, 3, coupsPossibles);
             return ((NoeudConfigurations) ia).getMeilleurCoup();
 
         }

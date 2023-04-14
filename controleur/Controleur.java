@@ -11,6 +11,7 @@ import static modele.plateau.PlateauOthello.BLANC;
 import static modele.plateau.PlateauOthello.NOIR;
 
 public class Controleur {
+    /*
     private Ihm ihm;
     private PlateauOthello plateau;
     private final int dim = 8;
@@ -37,13 +38,13 @@ public class Controleur {
             String tour = NOIR;
             while (!this.plateau.estFiniePartie() && continuer){
                 Coup coupJoue = this.demanderCoup(tour);
-                if (coupJoue.getX() != -3 && coupJoue.getY()!=-3) {
+                //if (coupJoue.getX() != -3 && coupJoue.getY()!=-3) {
                     this.jouerCoup(coupJoue); // teste si le coup est -passer- puis l'applique correctement
                     tour = NOIR.equals(tour) ? BLANC : NOIR; //on passe au joueur suivant
-                }else{
+                //}else{
                     continuer=false;
                     veutRejouer=false;
-                }
+                //}
 
             }
             Ihm.afficherPlateau(plateau);
@@ -65,7 +66,7 @@ public class Controleur {
             }
 
         }
-        Ihm.affichageVictoire(joueur.getNom(), adversaire.getNom(), joueur.getNbVictoires(), adversaire.getNbVictoires());
+        //Ihm.affichageVictoire(joueur.getNom(), adversaire.getNom(), joueur.getNbVictoires(), adversaire.getNbVictoires());
     }
 
     private void definirJoueur(){
@@ -182,6 +183,7 @@ public class Controleur {
             }
         }
     }
+    */
 
 }
 

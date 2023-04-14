@@ -120,4 +120,9 @@ public class CoupOthello implements Coup{
     public void setAEffet(boolean aEffet) {
         this.aEffet = aEffet;
     }
+
+    @Override
+    public boolean isIllegal() {
+        return this.x == -1 && this.y==-1;
+    }
 }

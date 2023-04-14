@@ -11,13 +11,18 @@ public class PlateauAwale implements Plateau{
     private int[][] grille;
     private int largeur = 6; //nombre de puis par champ 6 dans le jeu original
 
+    public PlateauAwale(){
+        this.grille = new int[2][this.largeur];
+        this.initialiser();
+    }
+
     private PlateauAwale copie(){
         /*
         renvoie un plateau avec le même contenu que this
          */
         PlateauAwale cop = new PlateauAwale();
         cop.largeur = this.largeur;
-        for(int ligne =0; ligne<=2; ligne++){
+        for(int ligne =0; ligne<2; ligne++){
             for(int puis=0; puis<this.largeur; puis++){
                 cop.grille[ligne][puis] = this.grille[ligne][puis];
             }
@@ -27,7 +32,15 @@ public class PlateauAwale implements Plateau{
 
     @Override
     public String toString() {
-        return super.toString();
+        String res = "1  2  3  4  5  6  \n";
+        for (int i=this.largeur -1; i>=0; i--){
+            res += this.grille[0][i]+ "  ";
+        }
+        res+="\n";
+        for(int j=0; j<this.largeur; j++){
+            res += this.grille[1][j] + "  ";
+        }
+        return res;
     }
 
     @Override
@@ -35,7 +48,7 @@ public class PlateauAwale implements Plateau{
         /*
         met tout les puis à 4
          */
-        for (int ligne=0; ligne <= 2 ; ligne++){
+        for (int ligne=0; ligne < 2 ; ligne++){
             for (int puis=0; puis < this.largeur; puis++){
                 this.grille[ligne][puis] = 4;
             }
@@ -48,8 +61,7 @@ public class PlateauAwale implements Plateau{
         renvoie le coup (coord, capture) correspondant au choix (ligne, puis)
         ou le coupIllegal si le coup n'est pas légal (coordonnées illegales, puis vide, affame adversaire)
          */
-        //verification de la légalité des valeurs
-        if(0<=ligne && ligne<2 && 0<=puis && puis<this.largeur ){
+        if(!((0<=ligne || ligne<2 )&& (0<=puis || puis<this.largeur)) ){ //si les coordonnées ne sont pas légales
             return CoupAwale.coupIllegal();
         }
         if (this.grille[ligne][puis] == 0){
@@ -112,6 +124,7 @@ public class PlateauAwale implements Plateau{
         int ligne = c.getLigne();
         int i = c.getPuis();
         int prise = this.grille[ligne][i];
+        this.grille[ligne][i]=0;
         while (prise != 0) {
             int[] pasSuivant = avancer(ligne, i);
             ligne = pasSuivant[0];
@@ -188,7 +201,7 @@ public class PlateauAwale implements Plateau{
         // QUEL SENS ???? : nombre de graine dans le camp du joueur donné (interet pour fin de partie)
         int ligne  = ((JoueurAwale)j).getLigne();
         int scoreJ = 0;
-        for (int puis =0; puis <= this.largeur; puis++){
+        for (int puis =0; puis < this.largeur; puis++){
             scoreJ+=this.grille[ligne][puis];
         }
         return scoreJ;
@@ -197,7 +210,7 @@ public class PlateauAwale implements Plateau{
 //---- estFiniePartie -----------------------------------------------------------------------------
     private int scoreParIndice(int ligne){
         int scoreJ = 0;
-        for (int puis =0; puis <= this.largeur; puis++){
+        for (int puis =0; puis < this.largeur; puis++){
             scoreJ+=this.grille[ligne][puis];
         }
         return scoreJ;

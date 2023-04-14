@@ -21,9 +21,7 @@ public class  Coord implements Comparable<Coord>{
                 '}';
     }
 
-    public int compareTo(Coord o) {
-        if (o == null || getClass() != o.getClass()) return -1;
-        Coord coord = (Coord) o;
+    public int compareTo(Coord coord) {
         if (this.x>coord.x){
             return 1;
         }

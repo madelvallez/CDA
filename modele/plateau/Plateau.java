@@ -11,4 +11,7 @@ public interface Plateau {
     int score(Joueur j);
     boolean estFiniePartie();
 
+    @Override
+    String toString();
+
 }
