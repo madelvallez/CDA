@@ -184,17 +184,29 @@ public class PlateauAwale implements Plateau{
 //---- score ----------------------------------------------------------------------------------------
     @Override
     public int score(Joueur j) {
-        // QUEL SENS ????
-
-        return 0; //------------------------------------------------------------------------------
+        // QUEL SENS ???? : nombre de graine dans le camp du joueur donné (interet pour fin de partie)
+        int ligne  = ((JoueurAwale)j).getLigne();
+        int scoreJ = 0;
+        for (int puis =0; puis <= this.largeur; puis++){
+            scoreJ+=this.grille[ligne][puis];
+        }
+        return scoreJ;
     }
 
 //---- estFiniePartie -----------------------------------------------------------------------------
+    private int scoreParIndice(int ligne){
+        int scoreJ = 0;
+        for (int puis =0; puis <= this.largeur; puis++){
+            scoreJ+=this.grille[ligne][puis];
+        }
+        return scoreJ;
+    }
+
     @Override
     public boolean estFiniePartie() {
         /*
-        teste si la partie est finie
+        teste si la partie est finie (=score de l'un des deux joueurs est 0)
          */
-        return false;//------------------------------------------------------------------------------
+        return scoreParIndice(0)==0 || scoreParIndice(1)==0 ;
     }
 }
