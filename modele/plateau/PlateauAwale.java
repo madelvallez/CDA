@@ -126,6 +126,7 @@ public class PlateauAwale implements Plateau{
         }
         int capture = capturer(ligne, i, c.getLigne());
         //la ligne identifie le joueur car il ne peut prendre que dans son champ
+        c.ajouterCapture(capture);
     }
 
     private int[] avancer(int x, int y){

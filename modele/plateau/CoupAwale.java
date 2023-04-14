@@ -2,7 +2,7 @@ package modele.plateau;
 
 public class CoupAwale implements Coup{
     private int ligne; // 0 ou 1
-    private int puis; // entiern entre 0 et 5
+    private int puis; // entier entre 0 et 5
     private boolean aEffet;
 
     private int capture ;
