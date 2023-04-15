@@ -1,4 +1,4 @@
-package modele.plateau;
+package controleur;
 
 
 public class CouleurException extends RuntimeException {
