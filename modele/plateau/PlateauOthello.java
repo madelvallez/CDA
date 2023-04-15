@@ -1,9 +1,14 @@
-package modele;
+package modele.plateau;
+
+import controleur.CouleurException;
+import modele.joueurs.Joueur;
+import modele.joueurs.JoueurHumainOthello;
+import modele.joueurs.JoueurOthello;
 
 import java.util.ArrayList;
 import static java.util.Arrays.fill;
 
-public class Plateau {
+public class PlateauOthello implements Plateau{
 
     public final static String BLANC = " \u26AA ";
     public final static String NOIR = " \u26AB ";
@@ -11,8 +16,9 @@ public class Plateau {
     private String[][] grille ;
     private final int DIM;
 
-    public Plateau(int dim){
-        this.DIM = dim;     //n'as de sens que si 4<=DIM<=26
+    public PlateauOthello(int dim){
+        assert 4<=dim && dim<=26 && dim%2==0; //n'as de sens que si 4<=DIM<=26 et est un nombre pair
+        this.DIM = dim;
         this.grille = new String[dim][dim];
         for (int i=0; i<this.DIM; i++){
             fill(this.grille[i], VIDE);
@@ -55,7 +61,7 @@ public class Plateau {
         this.grille[ind_centre+1][ind_centre+1] = BLANC;
     }
 
-    private void placerPion(String couleur, int i, int j) throws CouleurException{
+    private void placerPion(String couleur, int i, int j) throws CouleurException {
         /*
          * place un pion de la couleur @param couleur ( BLANC ou NOIR ) dans la case [i][j]
          * la case est supposée légale
@@ -75,13 +81,13 @@ public class Plateau {
         }
         /* les cordonnées sont OK*/
         if (!(0<=x && x<this.DIM && 0<=y && y<this.DIM)){
-            return new Coup();
+            return CoupOthello.coupIllegal();
         }
         if (!VIDE.equals(grille[x][y])){
-            return new Coup();
+            return CoupOthello.coupIllegal();
         }
         String coulOpp = NOIR.equals(coul) ? BLANC : NOIR; //donne la couleur opposée
-        Coup coup = new Coup(x,y, coul);
+        CoupOthello coup = new CoupOthello(x,y, coul);
 
         //a un effet sur la ligne ------------------------------------------------------------------------------
         //cote gauche de la ligne
@@ -180,17 +186,18 @@ public class Plateau {
         return coup;
     }
 
-    public ArrayList<Coup> listeCoupsPossibles(String coul) throws CouleurException{
+    public ArrayList<Coup> listeCoupsPossibles(Joueur joueur) throws CouleurException{
+        String coul = ((JoueurOthello) joueur).getCouleur();
         //teste si coul est legal
         if ((!NOIR.equals(coul))&& (!BLANC.equals(coul))){
             throw new CouleurException(coul +" n'est pas une couleur de pion");
         }
-        ArrayList<Coup> liste = new ArrayList();
+        ArrayList<Coup> liste = new ArrayList<Coup>();
         Coup coup;
         for (int i=0; i<this.DIM; i++){
             for (int j=0; j<this.DIM; j++){
                 coup = this.analyseCoup(i,j,coul);
-                if (coup.getaEffet()){
+                if (((CoupOthello)coup).getaEffet()){
                     liste.add(coup);
                 }
             }
@@ -210,66 +217,69 @@ public class Plateau {
         this.grille[x][y] = NOIR.equals((this.grille[x][y])) ? BLANC :NOIR;
     }
 
-    public void appliqueCoup(Coup coup) {
+    public void appliqueCoup(Coup c) {
         /*
          * Applque le coup sur this.grille
          * /!\ le coup est supposé légal
          */
-        Coord coupleVIDE = new Coord();
-        String coul = coup.getCouleur();
-        // on place le pion
-        this.placerPion(coup.getCouleur(), coup.getX(), coup.getY());
-        //traitement de la ligne
-        if (!(coup.getG().equals(coupleVIDE))) {
-            for (int j = coup.getY()-1; j > coup.getG().getY(); j--) {
-                this.retournerPion(coup.getX(), j);
+        CoupOthello coup = (CoupOthello)c;
+        if (coup.getX() >= 0 && coup.getY() >= 0){ //si c'est ni coupPasser, ni coupDejaAppliqué, ni coupVide, coupIllegal,...
+            Coord coupleVIDE = new Coord();
+            // on place le pion
+            this.placerPion(coup.getCouleur(), coup.getX(), coup.getY());
+            //traitement de la ligne
+            if (!(coup.getG().equals(coupleVIDE))) {
+                for (int j = coup.getY() - 1; j > coup.getG().getY(); j--) {
+                    this.retournerPion(coup.getX(), j);
+                }
             }
-        }
-        if (!coup.getD().equals(coupleVIDE)){
-            for(int j = coup.getY()+1; j<coup.getD().getY(); j++){
-                this.retournerPion(coup.getX(), j);
+            if (!coup.getD().equals(coupleVIDE)) {
+                for (int j = coup.getY() + 1; j < coup.getD().getY(); j++) {
+                    this.retournerPion(coup.getX(), j);
+                }
             }
-        }
-        //traitement colonne
-        if (!coup.getH().equals(coupleVIDE)){
-            for(int i=coup.getX()-1; i>coup.getH().getX(); i--){
-                this.retournerPion(i,coup.getY());
+            //traitement colonne
+            if (!coup.getH().equals(coupleVIDE)) {
+                for (int i = coup.getX() - 1; i > coup.getH().getX(); i--) {
+                    this.retournerPion(i, coup.getY());
+                }
             }
-        }
-        if(!coup.getB().equals(coupleVIDE)){
-            for(int i=coup.getX()+1; i<coup.getB().getX(); i++){
-                this.retournerPion(i,coup.getY());
+            if (!coup.getB().equals(coupleVIDE)) {
+                for (int i = coup.getX() + 1; i < coup.getB().getX(); i++) {
+                    this.retournerPion(i, coup.getY());
+                }
             }
-        }
-        //traitemment diagonale hg_bd
-        if(!coup.getHg().equals(coupleVIDE)){
-            for(int i=coup.getX()-1, j=coup.getY()-1; (i>coup.getHg().getX() && j>coup.getHg().getY()); i--, j--){
-                this.retournerPion(i,j);
+            //traitemment diagonale hg_bd
+            if (!coup.getHg().equals(coupleVIDE)) {
+                for (int i = coup.getX() - 1, j = coup.getY() - 1; (i > coup.getHg().getX() && j > coup.getHg().getY()); i--, j--) {
+                    this.retournerPion(i, j);
+                }
             }
-        }
-        if(!coup.getBd().equals(coupleVIDE)){
-            for(int i=coup.getX()+1, j=coup.getY()+1; (i<coup.getBd().getX() && j<coup.getBd().getY()); i++,j++){
-                this.retournerPion(i,j);
+            if (!coup.getBd().equals(coupleVIDE)) {
+                for (int i = coup.getX() + 1, j = coup.getY() + 1; (i < coup.getBd().getX() && j < coup.getBd().getY()); i++, j++) {
+                    this.retournerPion(i, j);
+                }
             }
-        }
-        //traitement diagonale hd-bg
-        if(!coup.getHd().equals(coupleVIDE)){
-            for(int i=coup.getX()-1, j=coup.getY()+1; (i>coup.getHd().getX() && j<coup.getHd().getY()); i--, j++){
-                this.retournerPion(i,j);
+            //traitement diagonale hd-bg
+            if (!coup.getHd().equals(coupleVIDE)) {
+                for (int i = coup.getX() - 1, j = coup.getY() + 1; (i > coup.getHd().getX() && j < coup.getHd().getY()); i--, j++) {
+                    this.retournerPion(i, j);
+                }
             }
-        }
-        if(!coup.getBg().equals(coupleVIDE)){
-            for(int i=coup.getX()+1, j=coup.getY()-1; (i<coup.getBg().getX() && j>coup.getBg().getY()); i++, j--){
-                this.retournerPion(i,j);
+            if (!coup.getBg().equals(coupleVIDE)) {
+                for (int i = coup.getX() + 1, j = coup.getY() - 1; (i < coup.getBg().getX() && j > coup.getBg().getY()); i++, j--) {
+                    this.retournerPion(i, j);
+                }
             }
         }
     }
 
-    public int score(String couleur)throws CouleurException{
-        /**
+    public int score(Joueur joueur)throws CouleurException{
+        /*
          * @param couleur : une couleur de pion (NOIR ou BLANC)
          * @return le nb de pion de la couleur [couleur] sur le plateau
          */
+        String couleur = ((JoueurOthello)joueur).getCouleur();
         if ((!NOIR.equals(couleur))&& (!BLANC.equals(couleur))){
             throw new CouleurException(couleur +" n'est pas une couleur de pion");
         }
@@ -285,18 +295,33 @@ public class Plateau {
     }
 
     public boolean estFiniePartie(){
-        ArrayList<Coup> coupsNOIR = listeCoupsPossibles(NOIR);
+        ArrayList<Coup> coupsNOIR = listeCoupsPossibles(new JoueurHumainOthello("fantome", NOIR));
         if (coupsNOIR.size() !=0){
             return false;
         }
-        ArrayList<Coup> coupsBLANC = listeCoupsPossibles(BLANC);
-        if(coupsBLANC.size()!=0){
-            return false;
-        }
-        return true;
+        ArrayList<Coup> coupsBLANC = listeCoupsPossibles(new JoueurHumainOthello("fantome", BLANC));
+        return coupsBLANC.size() == 0;
     }
 
     public String[][] getGrille() {
         return grille;
+    }
+
+    public PlateauOthello copie(){
+        PlateauOthello p = new PlateauOthello(this.DIM);
+        for(int i =0; i<this.DIM; i++){
+            for(int j =0; j<this.DIM; j++){
+                p.grille[i][j] = this.grille[i][j];
+            }
+        }
+        return p;
+    }
+
+    public static  String opposeCouleur(String coul ){
+        return NOIR.equals(coul)? BLANC: NOIR;
+    }
+
+    public int getDIM() {
+        return DIM;
     }
 }

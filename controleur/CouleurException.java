@@ -1,4 +1,4 @@
-package modele;
+package controleur;
 
 
 public class CouleurException extends RuntimeException {

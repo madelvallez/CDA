@@ -1,4 +1,4 @@
-package modele;
+package modele.plateau;
 //coordonnées comme couple d'entiers (-1,-1) est la coord erreur
 //coordonnées représentant Passer : (-2, -2)
 // coordonnée représentant fin de partie : (-3,-3)
@@ -21,9 +21,7 @@ public class  Coord implements Comparable<Coord>{
                 '}';
     }
 
-    public int compareTo(Coord o) {
-        if (o == null || getClass() != o.getClass()) return -1;
-        Coord coord = (Coord) o;
+    public int compareTo(Coord coord) {
         if (this.x>coord.x){
             return 1;
         }

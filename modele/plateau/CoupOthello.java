@@ -1,10 +1,11 @@
-package modele;
+package modele.plateau;
 
-import static modele.Plateau.VIDE;
-import static modele.Plateau.BLANC;
-import static modele.Plateau.NOIR;
+import controleur.CouleurException;
 
-public class Coup{
+import static modele.plateau.PlateauOthello.BLANC;
+import static modele.plateau.PlateauOthello.NOIR;
+
+public class CoupOthello implements Coup{
     private boolean aEffet ;
     private int x;
     private int y;
@@ -18,7 +19,7 @@ public class Coup{
     private Coord bd; //coord du pion en face si le coup a un effet sur la diag bas droite
     private Coord bg; //coord du pion en face si le coup a un effet sur la diag bas gauche
 
-    public Coup(int x, int y, String coul) throws CouleurException{
+    public CoupOthello(int x, int y, String coul) throws CouleurException {
         if ((coul != NOIR)&& (coul!= BLANC)){
             throw new CouleurException(coul +" n'est pas une couleur de pion");
         }
@@ -35,17 +36,27 @@ public class Coup{
         this.bd = new Coord();
         this.bg = new Coord();
     }
-    public Coup(){
+    public CoupOthello(){
         this(-1,-1, NOIR);
     }
-    public static Coup coupPasser(){
-        return new Coup(-2, -2, NOIR);
+    public static Coup coupPasser(){ //coup représentant le fait de passer son tour
+        return new CoupOthello(-2, -2, NOIR);
+    }
+    public static Coup coupIllegal(){ //coup représentant un coup (de joueur humain) invalide ou en attente
+        return new CoupOthello(-1,-1, NOIR);
+    }
+    public static Coup coupFinPartie(){ //coup représentant le choix de mettre fin au jeu (arret)
+        return new CoupOthello(-3, -3, NOIR);
+    }
+
+    public static Coup coupDejaAppliqué(String couleur){
+        return new CoupOthello(-4, -4, couleur);
     }
 
 
     @Override
     public String toString() {
-        return "Coup{" +
+        return "CoupOthello{" +
                 "aEffet=" + aEffet +
                 ", x=" + x +
                 ", y=" + y +
@@ -110,5 +121,10 @@ public class Coup{
 
     public void setAEffet(boolean aEffet) {
         this.aEffet = aEffet;
+    }
+
+    @Override
+    public boolean isIllegal() {
+        return this.x == -1 && this.y==-1;
     }
 }
