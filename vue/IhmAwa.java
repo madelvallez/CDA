@@ -27,9 +27,6 @@ public class IhmAwa extends Ihm{
 
         return b;
     }
-    public static void affichageplateauAwa(){
-        System.out.println();
-    }
 
     public static void affichagePlateau(PlateauAwale p){
         System.out.println(p);
