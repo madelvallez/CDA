@@ -11,13 +11,13 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        /*
-        Ihm ihm = new Ihm();
-        Controleur c = new Controleur(ihm);
-        c.jouer();
-        */
 
-        //serie tests awale Marine (à supprimer une fois controleur fonctionnel
+//        Ihm ihm = new Ihm();
+//        Controleur c = new Controleur(ihm);
+//        c.jouer();
+
+
+       // serie tests awale Marine (à supprimer une fois controleur fonctionnel
         PlateauAwale p = new PlateauAwale();
         JoueurAwale j = new JoueurHumainAwale("test", 0);
         System.out.println(p);
