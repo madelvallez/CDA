@@ -1,6 +1,5 @@
 package modele.plateau;
 
-import controleur.CouleurException;
 import modele.joueurs.Joueur;
 import modele.joueurs.JoueurHumainOthello;
 import modele.joueurs.JoueurOthello;
@@ -61,7 +60,7 @@ public class PlateauOthello implements Plateau{
         this.grille[ind_centre+1][ind_centre+1] = BLANC;
     }
 
-    private void placerPion(String couleur, int i, int j) throws CouleurException {
+    private void placerPion(String couleur, int i, int j) throws CouleurException{
         /*
          * place un pion de la couleur @param couleur ( BLANC ou NOIR ) dans la case [i][j]
          * la case est supposée légale

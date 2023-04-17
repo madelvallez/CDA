@@ -1,8 +1,6 @@
 package modele.joueurs;
 
 import java.util.List;
-
-import controleur.CouleurException;
 import modele.strategies_de_jeu.*;
 import modele.plateau.*;
 
