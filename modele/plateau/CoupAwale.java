@@ -19,10 +19,12 @@ public class CoupAwale implements Coup{
     public static CoupAwale coupDejaApplique(){return new CoupAwale(-4, -4);} // -4 -4
     public static CoupAwale coupFinPartie(){return new CoupAwale(-3, -3);} //-3 -3
 
+    @Override
     public int getX() {
         return ligne;
     }
 
+    @Override
     public int getY() {
         return puis;
     }
@@ -47,17 +49,7 @@ public class CoupAwale implements Coup{
     public boolean isIllegal(){
         return this.ligne==-1 && this.puis==-1;
     }
-
-    @Override
-    public int getX() {
-        return 0;
-    }
-
-    @Override
-    public int getY() {
-        return 0;
-    }
-
+    
 
     @Override
     public String toString() {

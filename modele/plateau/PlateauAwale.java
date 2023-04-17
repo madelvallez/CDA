@@ -116,11 +116,11 @@ public class PlateauAwale implements Plateau{
 
 //---- appliqueCoup ---------------------------------------------------------------------------------
     @Override
-    public void appliqueCoup(Coup coup) {
+    public void appliqueCoup(Coup c) {
         /*
         applique le coup coup au plateau this
          */
-        CoupAwale c = (CoupAwale) coup;
+        //CoupAwale c = (CoupAwale) coup;
         int ligne = c.getX();
         int i = c.getY();
         int prise = this.grille[ligne][i];
@@ -139,7 +139,7 @@ public class PlateauAwale implements Plateau{
         }
         int capture = capturer(ligne, i, c.getX());
         //la ligne identifie le joueur car il ne peut prendre que dans son champ
-        c.ajouterCapture(capture);
+        ((CoupAwale)c).ajouterCapture(capture);
     }
 
     private int[] avancer(int x, int y){

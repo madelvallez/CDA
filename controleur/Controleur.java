@@ -23,7 +23,7 @@ public class Controleur {
     public Controleur(Ihm ihm){
         this.ihm = ihm;
     }
-/*
+
     public void jouer(){
         String jeu=Ihm.demanderJeu();
         if (jeu.equals("Othello")){
@@ -33,6 +33,7 @@ public class Controleur {
             ControleurAwa ctlAwa=new ControleurAwa(ihm);
             ctlAwa.jouerAwa();
         }
+
     }
 //            Ihm.afficherPlateau(plateau);
 //            //annonce victoire et scores de la partie
