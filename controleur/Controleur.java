@@ -11,7 +11,7 @@ import static modele.plateau.PlateauOthello.BLANC;
 import static modele.plateau.PlateauOthello.NOIR;
 
 public class Controleur {
-    /*
+
     private Ihm ihm;
     private PlateauOthello plateau;
     private final int dim = 8;
@@ -25,7 +25,7 @@ public class Controleur {
         this.plateau = new PlateauOthello(this.dim);
 
     }
-
+/*
     public void jouer(){
 
         this.definirJoueur(); //definition et instanciation du joueur (anciennement joueur1)

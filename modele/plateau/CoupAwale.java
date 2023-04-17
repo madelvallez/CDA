@@ -19,11 +19,11 @@ public class CoupAwale implements Coup{
     public static CoupAwale coupDejaApplique(){return new CoupAwale(-4, -4);} // -4 -4
     public static CoupAwale coupFinPartie(){return new CoupAwale(-3, -3);} //-3 -3
 
-    public int getLigne() {
+    public int getX() {
         return ligne;
     }
 
-    public int getPuis() {
+    public int getY() {
         return puis;
     }
 
