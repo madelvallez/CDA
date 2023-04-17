@@ -49,16 +49,6 @@ public class CoupAwale implements Coup{
     }
 
     @Override
-    public int getY() {
-        return 0;
-    }
-
-    @Override
-    public int getX() {
-        return 0;
-    }
-
-    @Override
     public String toString() {
         return "CoupAwale{" +
                 "ligne=" + ligne +
