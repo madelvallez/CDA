@@ -1,5 +1,6 @@
 package vue;
 
+import modele.joueurs.JoueurAwale;
 import modele.plateau.PlateauAwale;
 
 import java.util.Scanner;
@@ -9,7 +10,7 @@ public class IhmAwa extends Ihm{
     public IhmAwa(Ihm ihm) {    }
 
     public static int demanderCoup(){
-        message("Quel est votre coup ?(entre 1 et 6");
+        message("Quel est votre coup ?(entre 1 et 6)");
         sc=new Scanner(System.in);
         int b;
         if(sc.hasNextInt()){
@@ -29,10 +30,17 @@ public class IhmAwa extends Ihm{
         System.out.println();
     }
 
-    public void affichagePlateau(PlateauAwale p){
+    public static void affichagePlateau(PlateauAwale p){
         System.out.println(p);
     }
 
+    public static void tourDeJouer(JoueurAwale j1,JoueurAwale j2 ,int i){
+        if (i==1) {
+            message("C'est à " + j1.getNom() + " de jouer");
+        }else{
+            message("C'est à " + j2.getNom() + " de jouer");
+        }
+    }
 
 
 }
