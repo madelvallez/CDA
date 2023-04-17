@@ -1,6 +1,6 @@
 package modele.joueurs;
 
-import controleur.CouleurException;
+import modele.plateau.CouleurException;
 import static modele.plateau.PlateauOthello.BLANC;
 import static modele.plateau.PlateauOthello.NOIR;
 
