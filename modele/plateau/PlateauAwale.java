@@ -1,5 +1,6 @@
 package modele.plateau;
 
+import controleur.MauvaisCoupException;
 import modele.joueurs.Joueur;
 import modele.joueurs.JoueurAwale;
 
@@ -116,13 +117,15 @@ public class PlateauAwale implements Plateau{
 
 //---- appliqueCoup ---------------------------------------------------------------------------------
     @Override
-    public void appliqueCoup(Coup c) {
+    public void appliqueCoup(Coup c) throws MauvaisCoupException{
         /*
-        applique le coup coup au plateau this
+        applique le coup c au plateau this
          */
-        //CoupAwale c = (CoupAwale) coup;
         int ligne = c.getX();
         int i = c.getY();
+        if (this.grille[ligne][i]==0){
+            throw new MauvaisCoupException("On ne peut pas jouer un puis vide");
+        }
         int prise = this.grille[ligne][i];
         this.grille[ligne][i]=0;
         while (prise != 0) {
@@ -171,7 +174,7 @@ public class PlateauAwale implements Plateau{
         y--;
         if (y== -1){
             y=this.largeur -1;
-            x= (x+1)/2; //changement de champ (de joueur)
+            x= (x+1)%2; //changement de champ (de joueur)
         }
         return new int[]{x,y};
     }
@@ -182,7 +185,7 @@ public class PlateauAwale implements Plateau{
          */
         int capture = 0;
         boolean continuer = true;
-        while (ligneJoueur == ligne && continuer){
+        while (ligneJoueur != ligne && continuer){
             if (this.grille[ligne][puis] == 2 || this.grille[ligne][puis]==3){ //si il a une quantité attrapable
                 capture += this.grille[ligne][puis];
                 this.grille[ligne][puis] = 0;

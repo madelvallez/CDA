@@ -43,9 +43,18 @@ public class ControleurAwa extends Controleur{
             plateau.initialiser();
             while(!this.plateau.estFiniePartie()) {
                 IhmAwa.tourDeJouer((JoueurAwale) joueur, (JoueurAwale) adversaire,tour);
-                CoupAwale coup=this.demanderCoup(tour);
-                this.jouerCoup(coup);
-                tour= tour==1 ? 0 : 1;
+                boolean bienJoue = false;
+                while(!bienJoue) { //tant que le joueur n'as pas bine joué, on lui redemande de jouer
+                    try {
+                        CoupAwale coup = this.demanderCoup(tour);
+                        this.jouerCoup(coup);
+                        bienJoue = true;
+                    }catch(MauvaisCoupException e){
+                        Ihm.messageErreur("Ce coup n'est pas legal.");
+                        bienJoue= false;
+                    }
+                }
+                tour= tour==1 ? 0 : 1; // changemetn de joueur
                 continuer=false;
                 rejouer=false;
             }
