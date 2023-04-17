@@ -21,6 +21,7 @@ public class ControleurOth extends Controleur{
     private final static String[] IADISPO = new String[]{"Naif", "MinMax1"};
 
     private boolean continuer = true ;
+    private Joueur joueur;
     private Joueur adversaire;
 
     public ControleurOth(Ihm ihm) {
