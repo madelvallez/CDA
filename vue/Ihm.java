@@ -127,7 +127,7 @@ public class Ihm {
     }
 
     public static String demanderJeu(){
-        message("A quelle jeu souhaitez vous jouer");
+        message("A quel jeu souhaitez vous jouer");
         sc=new Scanner(System.in);
         String b= sc.next();
         if (!(b.equals("Othello")||b.equals("Awale"))){

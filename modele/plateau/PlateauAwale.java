@@ -145,11 +145,13 @@ public class PlateauAwale implements Plateau{
     private int[] avancer(int x, int y){
         /*
         renvoie dans un int[] la position suivant celle donnée par x et y
+        @param x = ligne
+        @param y = puis
         */
         y++;
         if (y==this.largeur){
             y=0;
-            x= (x+1)/2; //changement de champ
+            x= (x+1)%2; //changement de champ
         }
         return new int[]{x,y};
     }
