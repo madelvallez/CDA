@@ -125,5 +125,17 @@ public class Ihm {
             System.out.println(nomJ + " a joué en "+(Integer)(x+1) + " "+(String.valueOf((char)(y+65))));
         }
     }
+
+    public static String demanderJeu(){
+        message("A quelle jeu souhaitez vous jouer");
+        sc=new Scanner(System.in);
+        String b= sc.next();
+        if (!(b.equals("Othello")||b.equals("Awale"))){
+            message("Veuillez renseigner un jeu valide");
+            b=demanderJeu();
+        }
+        return b;
+    }
+
 }
 

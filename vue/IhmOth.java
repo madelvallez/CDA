@@ -31,26 +31,7 @@ public class IhmOth extends Ihm {
         a--;
 
         int c =-1 ;
-//        if (b.equals("A")){
-//            c=0;
-//        } else if (b.equals("B")) {
-//            c=1;
-//        } else if (b.equals("C")) {
-//            c=2;
-//        } else if (b.equals("D")) {
-//            c=3;
-//        } else if (b.equals("E")) {
-//            c=4;
-//        } else if (b.equals("F")) {
-//            c=5;
-//        } else if (b.equals("G")) {
-//            c=6;
-//        } else if (b.equals("H")) {
-//            c=7;
-//        } else if (b.equals("P")) {
-//            return new int[] {-2,-2};
-//
-//        }
+
         for (int i=65; i<65+DIM;  i++){
             if (b.equals(String.valueOf((char)i))){
                 c= i-65;
