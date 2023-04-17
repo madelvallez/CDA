@@ -93,10 +93,16 @@ public class ControleurAwa extends Controleur{
     }
 
     private void definirAdversaire() {
-        String b = Ihm.demanderAdversaire();
-        if(b.equals("non")) {
-            String nom=Ihm.demanderNom(0);
-            this.adversaire = new JoueurHumainAwale(nom, 0);
+        boolean ok = false;
+        while (!ok) {
+            String b = Ihm.demanderAdversaire();
+            if (b.equals("non")) {
+                String nom = Ihm.demanderNom(0);
+                this.adversaire = new JoueurHumainAwale(nom, 0);
+                ok = true;
+            } else if ("oui".equals(b)) {
+                Ihm.messageErreur("Il n'est pas encore possible de jouer conttre un ordinateur");
+            }
         }
     }
 
