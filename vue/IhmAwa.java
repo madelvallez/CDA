@@ -1,5 +1,6 @@
 package vue;
 
+import modele.joueurs.Joueur;
 import modele.joueurs.JoueurAwale;
 import modele.plateau.PlateauAwale;
 
@@ -41,6 +42,9 @@ public class IhmAwa extends Ihm{
             message("C'est à " + j2.getNom() + " de jouer");
         }
     }
-
+    public static void affichageScore(Joueur j1, Joueur j2, int scoreJ1, int scoreJ2){
+        message("Le joueur "+j1.getNom()+" a "+scoreJ1);
+        message("Le joueur "+j2.getNom()+" a "+scoreJ2);
+    }
 
 }
