@@ -1,7 +1,5 @@
 package modele.plateau;
 
-import controleur.CouleurException;
-
 import static modele.plateau.PlateauOthello.BLANC;
 import static modele.plateau.PlateauOthello.NOIR;
 
@@ -19,7 +17,7 @@ public class CoupOthello implements Coup{
     private Coord bd; //coord du pion en face si le coup a un effet sur la diag bas droite
     private Coord bg; //coord du pion en face si le coup a un effet sur la diag bas gauche
 
-    public CoupOthello(int x, int y, String coul) throws CouleurException {
+    public CoupOthello(int x, int y, String coul) throws CouleurException{
         if ((coul != NOIR)&& (coul!= BLANC)){
             throw new CouleurException(coul +" n'est pas une couleur de pion");
         }

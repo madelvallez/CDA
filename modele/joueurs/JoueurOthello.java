@@ -1,6 +1,6 @@
 package modele.joueurs;
 
-import controleur.CouleurException;
+import modele.plateau.CouleurException;
 
 import java.util.Objects;
 
