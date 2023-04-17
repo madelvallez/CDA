@@ -65,6 +65,8 @@ public class ControleurAwa extends Controleur{
             } else if (scoreJoueur<scoreAdversaire) {
                 this.adversaire.incrementeNbVictoires();
             }
+            Ihm.affichageScore(joueur.getNom(),adversaire.getNom(),scoreJoueur,scoreAdversaire);
+            Ihm.affichageVictoire(joueur.getNom(),adversaire.getNom(),joueur.getNbVictoires(),adversaire.getNbVictoires());
         }
     }
 
