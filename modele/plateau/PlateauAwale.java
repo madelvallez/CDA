@@ -32,13 +32,13 @@ public class PlateauAwale implements Plateau{
 
     @Override
     public String toString() {
-        String res = "1  2  3  4  5  6  \n";
+        String res = "1 \t2 \t3  \t4 \t5 \t6  \n";
         for (int i=this.largeur -1; i>=0; i--){
-            res += this.grille[0][i]+ "  ";
+            res += this.grille[0][i]+ ".\t";
         }
         res+="\n";
         for(int j=0; j<this.largeur; j++){
-            res += this.grille[1][j] + "  ";
+            res += this.grille[1][j] + ".\t";
         }
         return res;
     }
@@ -121,8 +121,8 @@ public class PlateauAwale implements Plateau{
         applique le coup coup au plateau this
          */
         CoupAwale c = (CoupAwale) coup;
-        int ligne = c.getLigne();
-        int i = c.getPuis();
+        int ligne = c.getX();
+        int i = c.getY();
         int prise = this.grille[ligne][i];
         this.grille[ligne][i]=0;
         while (prise != 0) {
@@ -137,7 +137,7 @@ public class PlateauAwale implements Plateau{
             this.grille[ligne][i]++;
             prise--;
         }
-        int capture = capturer(ligne, i, c.getLigne());
+        int capture = capturer(ligne, i, c.getX());
         //la ligne identifie le joueur car il ne peut prendre que dans son champ
         c.ajouterCapture(capture);
     }
@@ -159,7 +159,7 @@ public class PlateauAwale implements Plateau{
         teste si la case (x,y) est la case où on a joué (= pris les graines)
          */
         CoupAwale c = (CoupAwale)coup;
-        return (x== c.getLigne()) && (y== c.getPuis());
+        return (x== c.getX()) && (y== c.getY());
     }
 
     private int[] reculer(int x, int y){

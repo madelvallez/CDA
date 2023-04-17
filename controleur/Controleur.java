@@ -23,7 +23,7 @@ public class Controleur {
     public Controleur(Ihm ihm){
         this.ihm = ihm;
     }
-
+/*
     public void jouer(){
         String jeu=Ihm.demanderJeu();
         if (jeu.equals("Othello")){

@@ -29,7 +29,7 @@ public class ControleurOth extends Controleur{
         this.plateau = new PlateauOthello(this.dim);
     }
 
-
+/*
     public void jouerOth(){
 
         this.definirJoueur(); //definition et instanciation du joueur (anciennement joueur1)
@@ -173,5 +173,5 @@ public class ControleurOth extends Controleur{
             this.plateau.appliqueCoup(coup);
         }
     }
-
+*/
 }
