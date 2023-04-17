@@ -41,13 +41,12 @@ public class ControleurOth extends Controleur{
             Ihm.message(joueur.getNom()+" joue avec les pions "+ ((JoueurOthello)joueur).getCouleur()+" et "+
                     adversaire.getNom()+" joue avec les pions" + ((JoueurOthello)adversaire).getCouleur());
             String tour = NOIR;
-            while (!this.plateau.estFiniePartie() && continuer){
+            while (!this.plateau.estFiniePartie()){
                 Coup coupJoue = this.demanderCoup(tour);
                 //if (coupJoue.getX() != -3 && coupJoue.getY()!=-3) {
                 this.jouerCoup(coupJoue); // teste si le coup est -passer- puis l'applique correctement
                 tour = NOIR.equals(tour) ? BLANC : NOIR; //on passe au joueur suivant
                 //}else{
-                continuer=false;
                 veutRejouer=false;
                 //}
 
