@@ -125,5 +125,8 @@ public class Ihm {
             System.out.println(nomJ + " a joué en "+(Integer)(x+1) + " "+(String.valueOf((char)(y+65))));
         }
     }
+
+
+
 }
 

@@ -9,7 +9,7 @@ import java.util.List;
 public class PlateauAwale implements Plateau{
 
     private int[][] grille;
-    private int largeur = 6; //nombre de puis par champ 6 dans le jeu original
+    private int largeur = 6; //nombre de puits par champ 6 dans le jeu original
 
     public PlateauAwale(){
         this.grille = new int[2][this.largeur];

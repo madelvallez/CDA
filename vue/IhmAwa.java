@@ -14,6 +14,9 @@ public class IhmAwa extends Ihm{
         int b=sc.nextInt();
         return b;
     }
+    public void affichageplateauAwa(){
+        System.out.println();
+    }
 
     public void affichagePlateau(PlateauAwale p){
         System.out.println(p);
