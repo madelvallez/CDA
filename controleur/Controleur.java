@@ -25,8 +25,14 @@ public class Controleur {
     }
 
     public void jouer(){
-        Ihm.de
-        if
+        String jeu=Ihm.demanderJeu();
+        if (jeu.equals("Othello")){
+            ControleurOth ctlOth=new ControleurOth(ihm);
+            ctlOth.jouerOth();
+        }else{
+            ControleurAwa ctlAwa=new ControleurAwa(ihm);
+            ctlAwa.jouerAwa();
+        }
     }
 //            Ihm.afficherPlateau(plateau);
 //            //annonce victoire et scores de la partie
@@ -152,19 +158,19 @@ public class Controleur {
 //
 //
 //
-//    private boolean rejouer(){
-//        while (true) {
-//            String rep = Ihm.messageRejouer();
-//            if ("Oui".equals(rep)) {
-//                return true;
-//            } else if ("Non".equals(rep)) {
-//                return false;
-//            }else{
-//                Ihm.erreurFin();
-//            }
-//        }
-//    }
-//
+protected boolean rejouer(){
+        while (true) {
+            String rep = Ihm.messageRejouer();
+            if ("Oui".equals(rep)) {
+                return true;
+            } else if ("Non".equals(rep)) {
+                return false;
+            }else{
+                Ihm.erreurFin();
+            }
+        }
+    }
+
 }
 
 /*ARCHIVE DE CODE QUI PEUT INTERESSER AILLEURS
