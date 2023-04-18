@@ -7,8 +7,8 @@ import modele.plateau.PlateauAwale;
 import java.util.Scanner;
 
 public class IhmAwa extends Ihm{
-    private static Scanner sc;
-    public IhmAwa(Ihm ihm) {    }
+    //private static Scanner sc;
+    public IhmAwa(Ihm ihm) {  super();  }
 
     public static int demanderCoup(){
         message("Quel est votre coup ?(entre 1 et 6)");

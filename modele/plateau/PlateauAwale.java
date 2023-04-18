@@ -203,7 +203,7 @@ public class PlateauAwale implements Plateau{
 //---- score ----------------------------------------------------------------------------------------
     @Override
     public int score(Joueur j) {
-        // QUEL SENS ???? : nombre de graine dans le camp du joueur donné (interet pour fin de partie)
+        // QUEL SENS ? : nombre de graine dans le camp du joueur donné (interet pour fin de partie)
         int ligne  = ((JoueurAwale)j).getLigne();
         int scoreJ = 0;
         for (int puis =0; puis < this.largeur; puis++){
