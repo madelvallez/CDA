@@ -1,6 +1,8 @@
 package modele.strategies_de_jeu;
 
 import java.util.List;
+
+import modele.joueurs.Joueur;
 import modele.plateau.*;
 
 public abstract class StrategieMinMax implements StrategieJeu{
@@ -13,9 +15,9 @@ public abstract class StrategieMinMax implements StrategieJeu{
     }
 
     @Override
-    public abstract Coup donnerCoup(List<Coup> coupsPossibles, Plateau plateau) ;
+    public abstract Coup donnerCoup(List<Coup> coupsPossibles, PlateauOthello plateau, Joueur[] joueurs) ;
 
-    //abstract int fonctionEvaluation(Plateau p, String couleur);
+    //abstract int fonctionEvaluation(PlateauOthello p, String couleur);
 
     public String getCouleur() {
         return couleur;

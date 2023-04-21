@@ -1,20 +1,24 @@
 package modele.arbres_de_configurations;
 
+import modele.joueurs.Joueur;
+import modele.joueurs.JoueurOthello;
 import modele.plateau.*;
 import java.util.List;
 
 public abstract class ArbreConfigurations implements Comparable<ArbreConfigurations> {
     private int score; //issu du calcul de minMax ou de la fonction d'evaluation
-    private Plateau p;//configuration sur laquelle on reflechit (le coup donné est deja joué)
+    private PlateauOthello p;//configuration sur laquelle on reflechit (le coup donné est deja joué)
     private Coup c;//coup appliqué pour obtenir cette situation
-    private String couleur;//couleur du coup joué en dernier
+    private Joueur[] joueurs;//les joueurs
+    private int numJ;
     private boolean isMax;//si on cherche à maximiser ou minimiser le score dans ce noeud (vis à vis de ses fils)
 
-    public ArbreConfigurations(Plateau p, Coup c, String couleur, boolean isMax){
+    public ArbreConfigurations(PlateauOthello p, Coup c, Joueur[] joueurs, int numJ, boolean isMax){
         this.c = c;
         this.p = p;
         this.isMax= isMax;
-        this.couleur = couleur;
+        this.joueurs = joueurs;
+        this.numJ = numJ;
 
     }
 //    private void calculerScore(int prof) {
@@ -23,7 +27,7 @@ public abstract class ArbreConfigurations implements Comparable<ArbreConfigurati
 //            if (this.p.estFiniePartie()) { //si c'est une configuration finale
 //                //cherher qui a gagné
 //                int nbPionJoueur = this.p.score(this.couleur);
-//                int nbPionAdv = this.p.score(Plateau.opposeCouleur(this.couleur));
+//                int nbPionAdv = this.p.score(PlateauOthello.opposeCouleur(this.couleur));
 //                if (nbPionAdv > nbPionJoueur) {
 //                    this.score = -1000;
 //                } else {
@@ -38,13 +42,14 @@ public abstract class ArbreConfigurations implements Comparable<ArbreConfigurati
     public int fonctionEvaluation(){
         int DIM = this.p.getDIM();
         int score = 0;
-        String coulOpp = Plateau.opposeCouleur(this.couleur); //on évalue du point de vue de la prochaine personne à jouer (et qui ne joue pas)
+        Joueur joueur = this.joueurs[numJ];
+        String coulOpp= PlateauOthello.opposeCouleur(((JoueurOthello)joueur).getCouleur()); //on évalue du point de vue de la prochaine personne à jouer (et qui ne joue pas)
         for(int i=0; i<DIM; i++){
             for(int j=0; j<DIM; j++){
                 if (coulOpp.equals(this.p.getGrille()[i][j])) {
-                    if (((i == 0) && (j == 0)) || ((i == 0) && (j == DIM - 1)) || ((i == DIM - 1) && (j == 0)) || ((i == DIM - 1) && (j == DIM - 1))) {
+                    if (estUnCoin(i,j,DIM)) {
                         score += 11;
-                    } else if ((i == 0) || (j == 0) || (i == DIM - 1) || (j == DIM - 1)) {
+                    } else if (estUnBord(i,j,DIM)) {
                         score += 6;
                     } else {
                         score += 1;
@@ -53,6 +58,22 @@ public abstract class ArbreConfigurations implements Comparable<ArbreConfigurati
             }
         }
         return score;
+    }
+
+    private boolean estUnCoin(int i, int j, int DIM){
+        boolean coinHG = (i == 0) && (j == 0);
+        boolean coinHD =  ((i == 0) && (j == DIM - 1));
+        boolean coinBG = ((i == DIM - 1) && (j == 0));
+        boolean coinBD = ((i == DIM - 1) && (j == DIM - 1));
+        return ( coinHG || coinHD || coinBG || coinBD);
+    }
+
+    private boolean estUnBord(int i, int j,int DIM){
+        boolean enHaut = (i == 0);
+        boolean enBas =  (i == DIM - 1);
+        boolean aGauche= (j == 0);
+        boolean aDroite =  (j == DIM - 1);
+        return enHaut || aDroite || enBas|| aGauche;
     }
 
     public int getScore(){
@@ -64,10 +85,22 @@ public abstract class ArbreConfigurations implements Comparable<ArbreConfigurati
     }
 
     public String getCouleur() {
-        return couleur;
+        return ((JoueurOthello)joueurs[numJ]).getCouleur();
     }
 
-    public Plateau getP() {
+    public Joueur getJoueurCourant(){
+        return joueurs[numJ];
+    }
+
+    public Joueur[] getJoueurs(){
+        return joueurs;
+    }
+
+    public int getNumJ() {
+        return numJ;
+    }
+
+    public PlateauOthello getP() {
         return p;
     }
 

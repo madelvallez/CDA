@@ -2,7 +2,7 @@ package vue;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import modele.plateau.Plateau;
+import modele.plateau.PlateauOthello;
 
 
 public class Ihm {
@@ -10,7 +10,7 @@ public class Ihm {
 
     public Ihm(){    }
 
-    public static void afficherPlateau(Plateau plateau) {
+    public static void afficherPlateau(PlateauOthello plateau) {
         System.out.println(plateau);
     }
 
@@ -125,5 +125,17 @@ public class Ihm {
             System.out.println(nomJ + " a joué en "+(Integer)(x+1) + " "+(String.valueOf((char)(y+65))));
         }
     }
+
+    public static String demanderJeu(){
+        message("A quel jeu souhaitez vous jouer");
+        sc=new Scanner(System.in);
+        String b= sc.next();
+        if (!(b.equals("Othello")||b.equals("Awale"))){
+            message("Veuillez renseigner un jeu valide");
+            b=demanderJeu();
+        }
+        return b;
+    }
+
 }
 

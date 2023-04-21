@@ -1,7 +1,8 @@
 package modele.strategies_de_jeu;
 
+import modele.joueurs.Joueur;
 import modele.plateau.*;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class StrategieNaif implements StrategieJeu {
@@ -10,10 +11,10 @@ public class StrategieNaif implements StrategieJeu {
 
 
     @Override
-    public Coup donnerCoup(List<Coup> coupsPossibles, Plateau p) {
+    public Coup donnerCoup(List<Coup> coupsPossibles, PlateauOthello p, Joueur[] joueurs) {
         Coup choix = null;
         if (coupsPossibles.size() == 0) {
-            choix = Coup.coupPasser();
+            choix = CoupOthello.coupPasser();
         } else {
             choix = coupsPossibles.get((int) (Math.random() * coupsPossibles.size()));
 
